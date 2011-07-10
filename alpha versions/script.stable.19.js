@@ -34,7 +34,7 @@
  */
 
 
-(function () {
+ (function () {
     /**
      * @Legacy
      */
@@ -100,23 +100,21 @@
                 }
 
                 arguments[0] = arguments[0].cloneNode(true);
+                // for (var i = 0; i < arguments[0].childNodes.length; i++) {
+                // properties.observer_interactor(arguments[0].childNodes[i])
+                // }
+                // arguments[0].childNodes.forEach(function() {
+                //     // console.log(arguments[0]);
+                // properties.observer_interactor(arguments[0])
+                // });
                 var d = document.createElement('route:template')
                 d.appendChild(arguments[0])
                 properties.observer_interactor(d)
                 this.content = d
                 d = arguments[0] = undefined
             },
-            Constructor: function (obj, str) {
-                if (obj[str].prototype) {
-                    return
-                }
-                var d = obj[str]
-                d = d.toString()
-                obj[str] = new Function(d.substring(d.indexOf('{') + 1, d.lastIndexOf('}') - 1));
-                d = undefined
-                return
-            },
             $: function () {
+                // arguments = arguments[0]
                 if ((arguments[0] instanceof Object) === false && "string" !== typeof arguments[0]) {
                     return
                 }
@@ -268,9 +266,33 @@
                     }, false),
                     d = [];
                 val.nextNode()
+                // while (true) {
+                //     d = val.nextNode()
+                //     if (!d) {
+                //         break;
+                //     }
+                //     d.push
+                //     if (d.data[0] + d.data[d.data.length - 1] === '??' && d.parentNode) {
+                //         properties.observer_callback(d)
+                //     }
+                // }
                 for (var i = 0; i < d.length; i++) {
                     properties.observer_interactor(d[i])
                 }
+                // var val = document.createTreeWalker(e, NodeFilter.SHOW_COMMENT, function(){
+
+                // }, false),
+                //     d;
+                //     console.log(val);
+                // while (true) {
+                //     d = val.nextNode()
+                //     if (!d) {
+                //         break;
+                //     }
+                //     if (d.data[0] + d.data[d.data.length - 1] === '??' && d.parentNode) {
+                //         properties.observer_callback(d)
+                //     }
+                // }
                 e = val = d = undefined;
             },
             observer_interactor: function (e) {
@@ -450,8 +472,25 @@
                         }
                         node.__children__ = []
 
+                        // switch (true) {
+                        //     case (typeof node.__events.onloadstart === "function"):
+                        //         node.__events.onloadstart.prototype.resolve = function () {
+                        //             properties.re_entries(n)
+                        //             n = undefined
+                        //         }
+                        //         new node.__events.onloadstart()
+                        //     case (typeof node.__events.onloadend === "function"):
+                        //         node.__events.onloadend.prototype.resolve = function () {
+                        //             properties.re_entries(n)
+                        //             n = undefined
+                        //         }
+                        //     default:
+                        //         properties.re_entries(n)
+                        //         n = undefined
+                        //         break;
+                        // }
+
                         if (typeof node.__events.onloadend === "function") {
-                            properties.Constructor(node.__events, 'onloadend')
                             node.__events.onloadend.prototype.resolve = function () {
                                 properties.re_entries(n)
                                 n = undefined
@@ -460,7 +499,6 @@
                         }
 
                         if (typeof node.__events.onload === "function") {
-                            properties.Constructor(node.__events, 'onload')
                             node.__events.onload.prototype.resolve = function () {
                                 properties.re_entries(n)
                                 n = undefined
@@ -469,7 +507,6 @@
                         }
 
                         if (typeof node.__events.onloadstart === "function") {
-                            properties.Constructor(node.__events, 'onloadstart')
                             node.__events.onloadstart.prototype.resolve = function () {
                                 properties.re_entries(n)
                                 n = undefined
@@ -549,6 +586,7 @@
                     }
 
                     type = undefined
+                    // node.__children__ = []
                     data = e.data.substring(1, e.data.length - 1)
                 }
 
@@ -567,6 +605,7 @@
                     } catch (error) {
                         properties.console.error(error)
                     }
+                    // console.log(node.__events,properties.$(node.__events,'onchange',[9]));
                 } else if (data && !type) {
                     data = data.trim()
                     if ('#'.includes(data[0])) {
@@ -609,19 +648,22 @@
                             }
                         }
 
+                        // if (!arguments[0] && typeof arguments[0] !== 'string') {
+                        //     arguments[0] = ''
+                        // }
+                        // var ev = properties.$(node.__events,'onchange',[node.__children__,data])
 
                         if (type === properties.nameSpace.element_flag) {
+                            // properties.type_entries(node, arguments[0])
                             properties.entries(node, arguments[0])
                         } else {
                             node.target_child = node;
                             properties.entries(node, arguments[0])
                             if (node.__events instanceof Object && typeof node.__events.onloadend === "function") {
-                                properties.Constructor(node.__events, 'onloadend')
                                 new node.__events.onloadend(node.__children__, arguments[0])
                             }
                             if (node.__events instanceof Object && typeof node.__events.onload === "function") {
-                                properties.Constructor(node.__events, 'onload')
-                                new node.__events.onloadend(node.__children__, arguments[0])
+                                new node.__events.onload(node.__children__, arguments[0])
                             }
                         }
                         arguments[0] = undefined
@@ -661,6 +703,13 @@
             this.createNodeList = function (string) {
                 return properties.stringtolist(arguments[0])
             }
+            // this.createPromise = function (promise, placeholder) {
+            //     return {
+            //         data: arguments[0],
+            //         placeholder: arguments[1],
+            //         "[[man-formed]]": true
+            //     }
+            // }
             this.nonStaticTemplate = function (HTMLTemplate) {
                 if (!window.HTMLTemplateElement) {
                     if (arguments[0] instanceof Element) {

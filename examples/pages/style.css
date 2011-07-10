@@ -42,10 +42,20 @@ h1 {
 
 
 img {
-    max-height: 400px;
-    /* height: 57vw; */
-    max-width: 450px;
-    /* width: 100vw; */
+    min-height: 212px;
+    min-width: 159.33333333333334px;
+    /*width: 318px;
+    height: 254.23px;
+    */
+    width: 368px;
+    height: 212px;
+    max-height: 477px;
+    max-width: 456.5px;
+    /*height: 318px;
+    width: 100%;
+    */
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.09);
 }
 
 button {
@@ -84,6 +94,7 @@ article {
     flex-direction: column;
     overflow: hidden;
     align-items: center;
+    padding: 0 24px;
 }
 
 @keyframes slideIn {

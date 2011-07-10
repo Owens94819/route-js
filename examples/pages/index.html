@@ -54,32 +54,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title route="app:name">Document</title>
-    <script>
-        function h() {
-            console.log(this);
-        }
-        var d = {
-            onload: function () {
-                var r = this.resolve
-                var atr = bd.querySelectorAll("article")
-                if (1 < atr.length) {
-                    atr[0].setAttribute('animate', 'in')
-                    atr[1].setAttribute('animate', 'out')
-                    bd.setAttribute('incoming', '')
-                    setTimeout(function () {
-                        r()
-                        bd.removeAttribute('incoming')
-                        atr[0].removeAttribute('animate')
-                    }, 500)
-                }
-            }
-        }
-    </script>
 </head>
 
 <body id="bd">
-    <?app:contents (d)?>
+    <?app:contents (app_event)?>
 </body>
-
-
 </html>
