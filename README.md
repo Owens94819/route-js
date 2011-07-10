@@ -164,7 +164,9 @@ placeholder: String || NodeList || Element
 
 ### resolve
  - this method when fired would remove the pervious Nodes leaving just the new Node
-
+```javascript
+  resolve()
+```
 # Examples
  `javascript`
  ```js
