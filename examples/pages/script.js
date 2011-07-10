@@ -4,15 +4,15 @@ var app = new RouteJs('app', {
 });
 
 new RouteJs('lib', lib);
-var duration = 500
+var duration = 800
 
 var app_event = {
-    onload() {
+    onload:function() {
         /**Animation**/
         var r = this.resolve
         var atr = body.querySelectorAll("article")
         if (1 < atr.length) {
-            var _duration = Math.min(Math.max((window.innerWidth / duration) * 500, 500), 700)
+            var _duration = Math.min(Math.max((window.innerWidth / duration) * 500, 500), duration+200)
             body.style.animationDuration = _duration + 'ms'
             atr[0].setAttribute('animate', 'in')
             atr[1].setAttribute('animate', 'out')

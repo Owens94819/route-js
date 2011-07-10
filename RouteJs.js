@@ -447,7 +447,7 @@
 
                         var n = {
                             __children__: node.__children__,
-                            resolve:function () {
+                            resolve: function () {
                                 properties.re_entries(n)
                                 n = undefined
                             }
@@ -472,7 +472,7 @@
                             new node.__events.onloadstart()
                             ev = 1
                         }
-                        
+
                         if (!ev) {
                             properties.re_entries(n)
                         }
