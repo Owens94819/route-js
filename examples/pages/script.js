@@ -18,7 +18,7 @@ var app_event = {
             atr[1].setAttribute('animate', 'out')
             bd.setAttribute('incoming', '')
             setTimeout(function () {
-               // r()
+               r()
                 bd.removeAttribute('incoming')
                 atr[0].removeAttribute('animate')
                 atr = undefined;

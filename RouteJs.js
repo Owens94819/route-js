@@ -450,26 +450,6 @@
                             resolve:function () {
                                 properties.re_entries(n)
                                 n = undefined
-                                if (node.__events.preventDefault) {
-                                    if (x_data) {
-                                        node.target_child = x_data;
-                                        x_data.parentElement.insertBefore(data, x_data)
-                                        x_data = undefined;
-                                    } else {
-                                        if (node.target_child.nextSibling) {
-                                            node.parentElement.insertBefore(data, node.target_child.nextSibling)
-                                        } else {
-                                            node.parentElement.appendChild(data)
-                                        }
-                                    }
-                                    if (!node.__children__) {
-                                        node.__children__ = [node.target_child = data]
-                                    } else {
-                                        node.__children__.push(node.target_child = data)
-                                    }
-                                    ev = data = node = undefined
-                                }
-                  
                             }
                         }
                         node.__children__ = []
@@ -492,10 +472,7 @@
                             new node.__events.onloadstart()
                             ev = 1
                         }
-
-                        if (node.__events.preventDefault) {
-                            return
-                        }
+                        
                         if (!ev) {
                             properties.re_entries(n)
                         }
