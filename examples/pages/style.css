@@ -1,6 +1,13 @@
 body {
     display: flex;
     justify-content: center;
+    overflow: hidden;
+}
+
+article{
+    animation: slideIn 0.2s 1 ease-out;
+    -webkit-animation: slideIn 0.2s 1 ease-out;
+
 }
 
 h2,h1 {
@@ -23,4 +30,22 @@ button{
     color: rgb(255 255 255);
     font-weight: 500;
     padding: 10px 16px;
+}
+
+
+@keyframes slideIn {
+    from{
+        transform: translateX(100vw);
+        -webkit-transform: translateX(100vw);
+        -moz-transform: translateX(100vw);
+        -ms-transform: translateX(100vw);
+        -o-transform: translateX(100vw);
+}
+to{
+    transform: translateX(0px);
+    -webkit-transform: translateX(0px);
+    -moz-transform: translateX(0px);
+    -ms-transform: translateX(0px);
+    -o-transform: translateX(0px);
+}
 }
