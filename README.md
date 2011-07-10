@@ -3,13 +3,13 @@
 ```js
 /*JavaScript*/
 
-var app=new RouteJs(String, Object])
+var app=new RouteJs(String, Object)
 
 app.map(String, String || Promise || NodeList || Element || Node || app.useTemplate || app.usePromise)
 
 app.mapAll(Object)
 
-app.useTemplate(HTMLTemplateElement || Element)
+app.useTemplate(HTMLTemplateElement || Element, Boolean)
 
 app.usePromise(Promise, String || NodeList || Element || Node || app.useTemplate || app.usePromise)
 
@@ -24,14 +24,49 @@ app.createNodeList(String)
 <?A:B C?>
 
 ```
-`
-where 
-A = Route name,
-B = Map name,
-C = placeholder (value to be displayed before B loads)
-  `
+`A = Route name`
+`B = Map name`
+`C = placeholder(value to be displayed before B loads) or events`
 
 
+```html
+<!--HTML-->
+
+<?A:B {
+    onload(resolve, NEWSibling, OLDSibling) {
+        console.log('loaded')
+    },
+    onloadstart(resolve, NEWSibling, OLDSibling) {
+        console.log('loadstart')
+    },
+    onloadend(resolve, NEWSibling, OLDSibling) {
+        console.log('loadend')
+    },
+    placeholder: "a placeholder for B"
+    }?>
+```
+
+
+```html
+<!--SCRIPT-->
+<script>
+    app_events= {
+    onload(resolve, NEWSibling, OLDSibling) {
+        console.log('loaded')
+    },
+    onloadstart(resolve, NEWSibling, OLDSibling) {
+        console.log('loadstart')
+    },
+    onloadend(resolve, NEWSibling, OLDSibling) {
+        console.log('loadend')
+    },
+    placeholder: "a placeholder for B"
+    }
+</script>
+
+<!--HTML-->
+<?A:B {app_events}?>
+```
 
 # Examples
  `javascript`
