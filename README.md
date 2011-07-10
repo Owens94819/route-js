@@ -25,6 +25,10 @@ app.createNodeList(String)
 
 <?A:B C?>
 
+<!-- or -->
+
+<div route="A:B C"></div>
+
 ```
 `A = Route name`
 `B = Map name`
@@ -46,12 +50,26 @@ app.createNodeList(String)
     },
     placeholder: "a placeholder for B"
     }?>
+
+    <!-- or -->
+
+<div route="A:B {
+    onload(resolve, NEWSibling, OLDSibling) {
+        console.log('loaded')
+    },
+    onloadstart(resolve, NEWSibling, OLDSibling) {
+        console.log('loadstart')
+    },
+    onloadend(resolve, NEWSibling, OLDSibling) {
+        console.log('loadend')
+    },
+    placeholder: "a placeholder for B"
+    }"></div>
 ```
 
 
-```html
-<!--SCRIPT-->
-<script>
+```javascript
+    /*JavaScript*/
     app_events= {
     onload(resolve, NEWSibling, OLDSibling) {
         console.log('loaded')
@@ -64,10 +82,14 @@ app.createNodeList(String)
     },
     placeholder: "a placeholder for B"
     }
-</script>
+```
 
+```html
 <!--HTML-->
 <?A:B {app_events}?>
+
+<!-- or -->
+<div route="A:B {app_events}"></div>
 ```
 
 # Examples
