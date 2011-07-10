@@ -4,14 +4,19 @@ var app = new RouteJs('app', {
 });
 
 var duration = 800
- 
+
 var app_event = {
-    onload() {
+    placeholder:async function() {
+        return "ppp"
+    },
+    async onload(resolve,NEWSibling,OLDSibling) {
         /**Animation**/
+        console.log(NEWSibling,OLDSibling);
+
         var r = this.resolve
         var atr = body.querySelectorAll("article")
         if (1 < atr.length) {
-            var _duration = Math.min(Math.max((window.innerWidth / duration) * 500, 500), duration+200)
+            var _duration = Math.min(Math.max((window.innerWidth / duration) * 500, 500), duration + 200)
             body.style.animationDuration = _duration + 'ms'
             atr[0].setAttribute('animate', 'in')
             atr[1].setAttribute('animate', 'out')
@@ -23,6 +28,9 @@ var app_event = {
                 atr = undefined;
             }, _duration)
         }
+    },
+    onloadstart(resolve,NEWSibling, OLDSibling) {
+        console.log(NEWSibling,OLDSibling);
     }
 }
 
@@ -31,18 +39,21 @@ onhashchange = function () {
     if (!hash) {
         hash = '#'
     }
-    app.map('contents', app.useTemplate(document.querySelector('[path="' + hash + '"]') || (hash="#Not found",document.querySelector('[_404]'))))
-    hash=hash.split("#")
+    app.map('contents', app.useTemplate(document.querySelector('[path="' + hash + '"]') || (hash = "#Not found", document.querySelector('[_404]'))))
+    hash = hash.split("#")
     app.map('name', hash[hash.length - 1] || "home")
 }
 
+onpopstate = function (e) {
+    console.log(e);
+}
 onhashchange()
 
 
 
 
 new RouteJs('lib', {
-    "home-img":RouteJs.prototype.createNodeList(`
+    "home-img": RouteJs.prototype.createNodeList(`
     <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" type="home" viewBox="0 0 1799.6 1200.87" style="enable-background:new 0 0 1799.6 1200.87;" xml:space="preserve"><g id="Nature"><g id="Plant"><path class="st0" d="M1046.84,923.92c-1.54-1.96-3.13-4.33-2.54-6.76c0.57-2.36,2.94-3.75,5.1-4.87
 c10.05-5.22,20.1-10.44,30.15-15.65c-17.59-18.2-31.87-39.58-41.96-62.79c-1.68-3.87-3.09-8.85-0.2-11.93
 c3.65-3.89,10.03-0.97,14.62,1.75c4.59,2.72,11.87,4.33,14.12-0.51c1.37-2.96-0.35-6.35-1.91-9.23
@@ -248,7 +259,7 @@ s-4.09-28,5.8-26.33c9.89,1.67,30.85,29.05,67.14,18.72c36.29-10.33,48.8-78.79,72.
 C923.59,355.07,886.84,313.84,886.84,313.84L886.84,313.84z"/><path class="st5" d="M888.23,324.3c0,0,8.81,24.84,23.84,24.87s15.2-4.18,12.18,9.28s4.48,15.14,0,23.54s-15.84,0.23-20.78-6.61
 c-4.94-6.84-12.17-11.31-20.31-13.7S870.97,351.26,888.23,324.3z"/></g></g></g></svg>
     `),
-    "about-img":RouteJs.prototype.createNodeList(`
+    "about-img": RouteJs.prototype.createNodeList(`
     <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 type="about" viewBox="0 0 1799.6 1200.87" style="enable-background:new 0 0 1799.6 1200.87;" xml:space="preserve"><g id="Nature"><g id="Plant_5_"><g><path class="st0" d="M1338.19,873.87c-2.55-4.97-4.68-10.41-4.38-15.94c0.53-10.06,8.58-17.5,15.52-24.49
 s13.72-16.48,10.93-26.23c-2.67-9.37-12.7-14.07-21.2-18.61c-8.5-4.54-17.63-12.55-15.89-22.03
@@ -421,7 +432,7 @@ C926.61,498.82,975.25,507.42,975.25,507.42z"/><g><path class="st5" d="M961.35,54
 c-16.38-34.4-61.54-9.51-73.95,13.13c-12.41,22.63-2.48,14.03-11.91,42.55c-6.5,19.66,0.44,39.27,5.16,50.97l20.33,1.4
 C919.47,553.63,949.04,551.25,961.35,543.77z"/></g></g></g></g></g></svg>
     `),
-    "404-img":RouteJs.prototype.createNodeList(`
+    "404-img": RouteJs.prototype.createNodeList(`
     <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 type="404" viewBox="0 0 1799.6 1200.87" style="enable-background:new 0 0 1799.6 1200.87;" xml:space="preserve"><g id="Nature"><ellipse id="Ground" class="st0" cx="930.15" cy="920.76" rx="454.76" ry="57.82"/><g id="Plant"><path class="st0" d="M1019.62,755.72c7.6-9.46,20.58-15.07,31.56-22.11c10.97-7.04,20.76-17.3,18.27-28.88
 c-4.12-19.21-38.29-29.05-41.89-48.3c-4.11-22.01,33.45-31.77,42.18-52.13c4.98-11.62-0.42-25.21-9.29-36.16
@@ -517,3 +528,6 @@ c0-77.84,63.1-140.94,140.94-140.94c77.84,0,140.94,63.1,140.94,140.94C1059.19,511
 
     `)
 });
+
+
+ 

@@ -112,7 +112,13 @@ void(function () {
                 }
                 var d = obj[str]
                 d = d.toString()
-                obj[str] = new Function(d.substring(d.indexOf('{') + 1, d.lastIndexOf('}') - 1));
+                if (d.substring(0,d.indexOf('(')).includes("async")) {
+                    d=d.substring(d.indexOf('('))
+                    d='return (function F'+d+')'
+                }else{
+                    d='return  (function F'+d+')'
+                }
+                obj[str] = new Function("\"use strict\";"+d)();
                 d = undefined
                 return
             },
@@ -440,44 +446,39 @@ void(function () {
                     data = document.createTextNode(data)
                 }
 
-                if (!ch && !x_data && node.__children__) {
-
+                if (!ch && !x_data) {
                     if (node.__events instanceof Object) {
                         var ev;
-
-                        var n = {
-                            __children__: node.__children__,
-                            resolve: function () {
-                                properties.re_entries(n)
-                                n = undefined
-                            }
+                        node.previousNode= {
+                            __children__: node.__children__||[]
                         }
+
                         node.__children__ = []
 
                         if (typeof node.__events.onloadend === "function") {
                             void properties.Constructor(node.__events, 'onloadend')
-                            node.__events.onloadend.prototype.resolve = n.resolve
+                            node.__events.onloadend.prototype.resolve = node.__events.resolve
                             ev = 1
                         }
 
                         if (typeof node.__events.onload === "function") {
                             void properties.Constructor(node.__events, 'onload')
-                            node.__events.onload.prototype.resolve = n.resolve
+                            node.__events.onload.prototype.resolve = node.__events.resolve
                             ev = 1
                         }
 
                         if (typeof node.__events.onloadstart === "function") {
                             void properties.Constructor(node.__events, 'onloadstart')
-                            node.__events.onloadstart.prototype.resolve = n.resolve
-                            void new node.__events.onloadstart()
+                            node.__events.onloadstart.prototype.resolve = node.__events.resolve
+                            void new node.__events.onloadstart(node.__events.resolve,null,null)
                             ev = 1
                         }
 
                         if (!ev) {
-                            void properties.re_entries(n)
+                            void node.__events.resolve()
                         }
 
-                    } else {
+                    } else if(node.__children__){
                         void properties.re_entries(node)
                         node.__children__ = []
                     }
@@ -499,7 +500,7 @@ void(function () {
                 } else {
                     void node.__children__.push(node.target_child = data)
                 }
-                ev = data = node = undefined
+                ev = data = node = void 0
             },
             stringtolist: function (e) {
                 var elm = arguments.callee.elm.cloneNode()
@@ -558,29 +559,43 @@ void(function () {
                 data = data[2]
                 if (data && (data[1] + data[data.length - 1]).match(/^(\{\}|\(\))$/)) {
                     try {
-                        node.__events = new Function('"use strict";return ' + data)();
+                        node.__events =new Function('"use strict";return ' + data)();
+                        if (typeof node.__events === "object") {
+                            node.__events=Object.create(node.__events);
+                        }else{
+                            node.__events={}
+                        }
+                      node.__events.resolve=function(){node.previousNode&&(properties.re_entries(node.previousNode),node.previousNode=void 0)};
+                        if (typeof node.__events.placeholder === "function") {
+                            data=node.__events.placeholder()
+                        } else {
+                            data=node.__events.placeholder
+                        }
                     } catch (error) {
+                        data=void 0;
                         void properties.console.error(error)
                     }
-                } else if (data && !type) {
-                    data = data.trim()
-                    if ('#'.includes(data[0])) {
-                        data = document.querySelector(data);
-                        if (data) {
-                            if (data.content) {
-                                data = data.content
-                                data = data.cloneNode(true)
+                }
+                
+                if (data && !type) {
+                    if (!((e = properties.store[node.__data__[0]]) && (e = e.has(node.__data__[1])))) {
+                        data = data.trim()
+                        if ('#'.includes(data[0])) {
+                            data = document.querySelector(data);
+                            if (data) {
+                                if (data.content) {
+                                    data = data.content
+                                    data = data.cloneNode(true)
+                                } else {
+                                    data = data.childNodes
+                                }
                             } else {
-                                data = data.childNodes
+                                data = document.createTextNode('')
                             }
                         } else {
-                            data = document.createTextNode('')
+                            data = properties.stringtolist(data)
+                            data.exeception = true
                         }
-                    } else {
-                        data = properties.stringtolist(data)
-                        data.exeception = true
-                    }
-                    if (!((e = properties.store[node.__data__[0]]) && (e = e.has(node.__data__[1])))) {
                         node.target_child = node;
                         if (data instanceof NodeList && !data.exeception) {
                             void properties.entries(node, data, 0)
@@ -590,7 +605,7 @@ void(function () {
                     }
                 }
 
-                data = e = undefined;
+                data = e = void 0;
 
                 properties.events.on(node.__data__[0], function () {
                     arguments[0].on(node.__data__[1], function () {
@@ -612,16 +627,16 @@ void(function () {
                             void properties.entries(node, arguments[0])
                             if (node.__events instanceof Object && typeof node.__events.onloadend === "function") {
                                 void properties.Constructor(node.__events, 'onloadend')
-                                void new node.__events.onloadend(node.__children__, arguments[0])
+                                void new node.__events.onloadend(node.__events.resolve, node.__children__, arguments[0])
                             }
                             if (node.__events instanceof Object && typeof node.__events.onload === "function") {
                                 void properties.Constructor(node.__events, 'onload')
-                                void new node.__events.onload(node.__children__, arguments[0])
+                                void new node.__events.onload(node.__events.resolve, node.__children__, arguments[0])
                             }
                         }
-                        arguments[0] = undefined
+                        arguments[0] = void 0
                     })
-                    arguments[0] = undefined
+                    arguments[0] = void 0
                 })
             },
             console: console,
