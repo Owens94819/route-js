@@ -605,17 +605,16 @@ void(function () {
                             }
                         }
 
-
                         if (type === properties.nameSpace.element_flag) {
                             void properties.entries(node, arguments[0])
                         } else {
                             node.target_child = node;
                             void properties.entries(node, arguments[0])
                             if (node.__events instanceof Object && typeof node.__events.onloadend === "function") {
-                                void node.__events.onloadend(node.__events.resolve, node.__children__, arguments[0])
+                                void node.__events.onloadend(node.__events.resolve, null/**NEWSibling*/, null /**OLDSibling*/)
                             }
                             if (node.__events instanceof Object && typeof node.__events.onload === "function") {
-                                void node.__events.onload(node.__events.resolve, node.__children__, arguments[0])
+                                void node.__events.onload(node.__events.resolve, null, null)
                             }
                         }
                         arguments[0] = void 0
