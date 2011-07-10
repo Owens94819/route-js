@@ -616,7 +616,7 @@
                             }
                             if (node.__events instanceof Object && typeof node.__events.onload === "function") {
                                 properties.Constructor(node.__events, 'onload')
-                                new node.__events.onloadend(node.__children__, arguments[0])
+                                new node.__events.onload(node.__children__, arguments[0])
                             }
                         }
                         arguments[0] = undefined
