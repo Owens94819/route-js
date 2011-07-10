@@ -5,9 +5,8 @@ body {
 }
 
 article{
-    animation: slideIn 0.2s 1 ease-out;
-    -webkit-animation: slideIn 0.2s 1 ease-out;
-
+    animation: slideIn 0.2s 1 ease-in-out;
+    -webkit-animation: slideIn 0.2s 1 ease-in-out;
 }
 
 h2,h1 {
