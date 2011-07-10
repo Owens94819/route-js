@@ -462,13 +462,13 @@
                 if (!ch && !x_data && node.__children__) {
                     var ev;
 
-                    if ( (ev = properties.$(node.__events, 'onchange',[node.__children__,data])) instanceof Promise) {
+                    if ( (ev = properties.$(node.__events, 'onloadstart',[node])) instanceof Promise) {
                         var n = {
                             __children__: node.__children__,
                             node:node
                         }
                             node.__children__ = []
-                            node.pending = 1
+                            // node.pending = 1
                             ev.then(function () {
                                 n.node.pending = 0
                                 properties.re_entries(n)
@@ -555,7 +555,7 @@
 
                 node.__data__ = node.__data__.split(':')
                 data = data[2]
-                if (data && data[1] + data[data.length - 1] === '{}') {
+                if (data && (data[1] + data[data.length - 1]).match(/^(\{\}|\(\))$/)) {
                     try {
                         node.__events = new Function('"use strict";return ' + data)();
                     } catch (error) {
@@ -615,6 +615,7 @@
                         } else {
                             node.target_child = node;
                             properties.entries(node, arguments[0])
+                            properties.$(node.__events, 'onloadend',[node.__children__,arguments[0]])
                         }
                         arguments[0] = undefined
                     })

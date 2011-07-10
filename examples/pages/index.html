@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" id="html">
 
 <head>
     <script>
@@ -10,7 +10,7 @@
             "404-img": (img = new Image(), img.src = "../../imgs/404.svg", img)
         }
     </script>
-    <template path='#'>1
+    <template path='#'>
         <article xclass="slide">
             <?lib:home-img?>
             <h1>Home</h1>
@@ -21,8 +21,8 @@
                 <button onclick="location.href='#about'">Check About Page</button>
             </p>
         </article>
-    2</template>
-    <template path='#about'>1
+    </template>
+    <template path='#about'>
         <article xclass="slide">
             <?lib:about-img?>
             <h1>About</h1>
@@ -33,8 +33,8 @@
                 <button onclick="location.replace('#')">Check Home Page</button>
             </p>
         </article>
-    2</template>
-    <template _404>1
+    </template>
+    <template _404>
         <article xclass="slide">
             <?lib:404-img?>
             <h2>location not fund</h2>
@@ -45,7 +45,7 @@
                 <button onclick="location.replace('#')">Go Home Page</button>
             </p>
         </article>
-    2</template>
+    </template>
     <link rel="stylesheet" href="../../themes/default.css">
     <link rel="stylesheet" href="style.css">
     <script src="../../RouteJs.js"></script>
@@ -56,21 +56,34 @@
     <title route="app:name">Document</title>
 </head>
 
-<body>
-    <?app:contents {
-        onchange(currentNode,nextNode) {
-            var atr=document.body.querySelector("article")
-            console.log(document.body.innerHTML)
-          if(atr){
-            return new Promise(function(r){
-                atr.className='slide'
-                setTimeout(function(){
-                r()
-                },700)
-              })
-          }
+<body id="bd">
+    <script>
+        d = {
+            onloadstart(node) {
+                node.pending = true
+                return new Promise(function (r) {
+                    setTimeout(function () {
+                        var atr = document.body.querySelector("article[p]")
+                        bd.removeAttribute('incoming')
+                        if (atr) {
+                            atr.removeAttribute('p')
+                        }
+                        node.pending = false;
+                        r()
+                    }, 700)
+                })
+            },
+            onloadend(currentNode, nextNode) {
+                var atr = document.body.querySelectorAll("article")
+                if (1 < atr.length) {
+                    atr[0].setAttribute('p', '')
+                    bd.setAttribute('incoming', '')
+                }
+            }
         }
-    }?>
+    </script>
+    <?app:contents (d)?>
 </body>
+
 
 </html>
