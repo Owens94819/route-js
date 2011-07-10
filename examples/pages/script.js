@@ -7,7 +7,7 @@ new RouteJs('lib', lib);
 var duration = 800
 
 var app_event = {
-    onload:function() {
+    onload() {
         /**Animation**/
         var r = this.resolve
         var atr = body.querySelectorAll("article")
