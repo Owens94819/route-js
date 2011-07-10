@@ -35,10 +35,10 @@
 
 
 (function () {
-    /**
-     * @Legacy
-     */
     if (!window.Promise) {
+        /**
+         * @Legacy
+         */
         window.Promise = new Function()
         Node.prototype.remove = function () {
             if (this.parentNode) {
