@@ -112,13 +112,13 @@ void(function () {
                 }
                 var d = obj[str]
                 d = d.toString()
-                if (d.substring(0,d.indexOf('(')).includes("async")) {
-                    d=d.substring(d.indexOf('('))
-                    d='return (function F'+d+')'
-                }else{
-                    d='return  (function F'+d+')'
+                if (d.substring(0, d.indexOf('(')).includes("async")) {
+                    d = d.substring(d.indexOf('('))
+                    d = 'return (function F' + d + ')'
+                } else {
+                    d = 'return  (function F' + d + ')'
                 }
-                obj[str] = new Function("\"use strict\";"+d)();
+                obj[str] = new Function("\"use strict\";" + d)();
                 d = undefined
                 return
             },
@@ -448,37 +448,37 @@ void(function () {
 
                 if (!ch && !x_data) {
                     if (node.__events instanceof Object) {
-                        var ev;
-                        node.previousNode= {
-                            __children__: node.__children__||[]
+                        // var ev;
+                        node.previousNode = {
+                            __children__: node.__children__ || []
                         }
 
                         node.__children__ = []
 
-                        if (typeof node.__events.onloadend === "function") {
-                            void properties.Constructor(node.__events, 'onloadend')
-                            node.__events.onloadend.prototype.resolve = node.__events.resolve
-                            ev = 1
-                        }
+                        // if (typeof node.__events.onloadend === "function") {
+                        //     void properties.Constructor(node.__events, 'onloadend')
+                        //     node.__events.onloadend.prototype.resolve = node.__events.resolve
+                        //     ev = 1
+                        // }
 
-                        if (typeof node.__events.onload === "function") {
-                            void properties.Constructor(node.__events, 'onload')
-                            node.__events.onload.prototype.resolve = node.__events.resolve
-                            ev = 1
-                        }
+                        // if (typeof node.__events.onload === "function") {
+                        //     void properties.Constructor(node.__events, 'onload')
+                        //     node.__events.onload.prototype.resolve = node.__events.resolve
+                        //     ev = 1
+                        // }
 
                         if (typeof node.__events.onloadstart === "function") {
-                            void properties.Constructor(node.__events, 'onloadstart')
-                            node.__events.onloadstart.prototype.resolve = node.__events.resolve
-                            void new node.__events.onloadstart(node.__events.resolve,null,null)
-                            ev = 1
+                            // void properties.Constructor(node.__events, 'onloadstart')
+                            // node.__events.onloadstart.prototype.resolve = node.__events.resolve
+                            void node.__events.onloadstart(node.__events.resolve, null, null)
+                            // ev = 1
                         }
 
-                        if (!ev) {
+                        if (!(node.__events.onloadend || typeof node.__events.onload || typeof node.__events.onloadstart)) {
                             void node.__events.resolve()
                         }
 
-                    } else if(node.__children__){
+                    } else if (node.__children__) {
                         void properties.re_entries(node)
                         node.__children__ = []
                     }
@@ -559,24 +559,26 @@ void(function () {
                 data = data[2]
                 if (data && (data[1] + data[data.length - 1]).match(/^(\{\}|\(\))$/)) {
                     try {
-                        node.__events =new Function('"use strict";return ' + data)();
+                        node.__events = new Function('"use strict";return ' + data)();
                         if (typeof node.__events === "object") {
-                            node.__events=Object.create(node.__events);
-                        }else{
-                            node.__events={}
-                        }
-                      node.__events.resolve=function(){node.previousNode&&(properties.re_entries(node.previousNode),node.previousNode=void 0)};
-                        if (typeof node.__events.placeholder === "function") {
-                            data=node.__events.placeholder()
+                            node.__events = Object.create(node.__events);
                         } else {
-                            data=node.__events.placeholder
+                            node.__events = {}
+                        }
+                        node.__events.resolve = function () {
+                            node.previousNode && (properties.re_entries(node.previousNode), node.previousNode = void 0)
+                        };
+                        if (typeof node.__events.placeholder === "function") {
+                            data = node.__events.placeholder()
+                        } else {
+                            data = node.__events.placeholder
                         }
                     } catch (error) {
-                        data=void 0;
+                        data = void 0;
                         void properties.console.error(error)
                     }
                 }
-                
+
                 if (data && !type) {
                     if (!((e = properties.store[node.__data__[0]]) && (e = e.has(node.__data__[1])))) {
                         data = data.trim()
@@ -626,12 +628,12 @@ void(function () {
                             node.target_child = node;
                             void properties.entries(node, arguments[0])
                             if (node.__events instanceof Object && typeof node.__events.onloadend === "function") {
-                                void properties.Constructor(node.__events, 'onloadend')
-                                void new node.__events.onloadend(node.__events.resolve, node.__children__, arguments[0])
+                                // void properties.Constructor(node.__events, 'onloadend')
+                                void node.__events.onloadend(node.__events.resolve, node.__children__, arguments[0])
                             }
                             if (node.__events instanceof Object && typeof node.__events.onload === "function") {
-                                void properties.Constructor(node.__events, 'onload')
-                                void new node.__events.onload(node.__events.resolve, node.__children__, arguments[0])
+                                // void properties.Constructor(node.__events, 'onload')
+                                void node.__events.onload(node.__events.resolve, node.__children__, arguments[0])
                             }
                         }
                         arguments[0] = void 0

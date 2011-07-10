@@ -6,33 +6,35 @@ var app = new RouteJs('app', {
 var duration = 800
 
 var app_event = {
-    placeholder:async function() {
+    placeholder: function () {
         return "ppp"
     },
-    async onload(resolve,NEWSibling,OLDSibling) {
-        /**Animation**/
-        console.log(NEWSibling,OLDSibling);
 
-        var r = this.resolve
+    onload(resolve, NEWSibling, OLDSibling) {
+        /**Animation**/
         var atr = body.querySelectorAll("article")
-        if (1 < atr.length) {
+        if (atr.length > 1) {
             var _duration = Math.min(Math.max((window.innerWidth / duration) * 500, 500), duration + 200)
             body.style.animationDuration = _duration + 'ms'
+
             atr[0].setAttribute('animate', 'in')
             atr[1].setAttribute('animate', 'out')
             body.setAttribute('incoming', '')
+
             setTimeout(function () {
-                r()
+                resolve()
                 body.removeAttribute('incoming')
                 atr[0].removeAttribute('animate')
                 atr = undefined;
             }, _duration)
         }
     },
-    onloadstart(resolve,NEWSibling, OLDSibling) {
-        console.log(NEWSibling,OLDSibling);
+
+    onloadstart(resolve, NEWSibling, OLDSibling) {
+        console.log(NEWSibling, OLDSibling, this);
     }
 }
+
 
 onhashchange = function () {
     var hash = location.hash.trim();
@@ -528,6 +530,3 @@ c0-77.84,63.1-140.94,140.94-140.94c77.84,0,140.94,63.1,140.94,140.94C1059.19,511
 
     `)
 });
-
-
- 
