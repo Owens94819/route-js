@@ -39,10 +39,10 @@ void(function () {
         /**
          * @Legacy
          */
-        window.Promise = new Function()
+        window.Promise = new Function();
         Node.prototype.remove = function () {
             if (this.parentNode) {
-                void this.parentNode.removeChild(this)
+                void this.parentNode.removeChild(this);
             }
         }
         String.prototype.includes = function () {
@@ -50,11 +50,11 @@ void(function () {
         }
 
         var DOMOBserver = window.document.createEvent("Event");
-        void DOMOBserver.initEvent("DOMNodeInserted", true, true)
-        void document.documentElement.dispatchEvent(DOMOBserver)
+        void DOMOBserver.initEvent("DOMNodeInserted", true, true);
+        void document.documentElement.dispatchEvent(DOMOBserver);
         void setInterval(function () {
-            void document.documentElement.dispatchEvent(DOMOBserver)
-        }, 500)
+            void document.documentElement.dispatchEvent(DOMOBserver);
+        }, 500);
     }
 
 
@@ -248,13 +248,13 @@ void(function () {
                             void foo(e[i].addedNodes[_i]);
                         }
                     }
-                    e = undefined
+                    e = undefined;
                 }).observe(elm || document, {
                     childList: true,
                     characterData: true,
                     subtree: true,
-                })
-                elm = undefined
+                });
+                elm = void 0;
             } : function (foo, elm) {
                 elm.addEventListener('DOMNodeInserted', function (e) {
                     foo(e.target);
@@ -484,7 +484,7 @@ void(function () {
                 } else {
                     void node.__children__.push(node.target_child = data)
                 }
-                ev = data = node = void 0
+                ev = data = node = void 0;
             },
             stringtolist: function (e) {
                 var elm = arguments.callee.elm.cloneNode()
@@ -546,8 +546,10 @@ void(function () {
                         node.__events = new Function('"use strict";return ' + data)();
                         if (typeof node.__events === "object") {
                             node.__events = Object.create(node.__events);
-                        }else if(typeof node.__events === "function"){
-                            node.__events = Object.create({onload:node.__events});
+                        } else if (typeof node.__events === "function") {
+                            node.__events = Object.create({
+                                onload: node.__events
+                            });
                         } else {
                             node.__events = {}
                         }
@@ -694,10 +696,10 @@ void(function () {
             this.usePromise = function (promise) {
                 return new properties.APPPromise(arguments[0], arguments[1])
             }
-        }
+        };
 
     properties.stringtolist.elm = document.createElement('x');
-    properties.events = properties.Event('router', {})
+    properties.events = properties.Event('router', {});
     void properties.observer();
 
     window.RouteJs = function (name, object) {
@@ -722,16 +724,58 @@ void(function () {
         void properties.events.emit(this.name, store)
     }
 
-    properties.APPExtendedObject.prototype.content = {}
-    RouteJs.prototype = new RouteJsCore()
+    properties.APPExtendedObject.prototype.content = {};
+    RouteJs.prototype = new RouteJsCore();
     RouteJs.extend = function () {
         return new properties.APPExtendedObject(arguments[0])
-    }
+    };
 
+    RouteJs.fetch = function (url, returnPromise) {
+        "use strict";
+        var request = new XMLHttpRequest();
+        var prom = new Promise(function (rs, rj) {
+            void request.addEventListener('load', function () {
+                if (request.response && request.response.body) {
+                    void rs(request.response.body.childNodes);
+                } else {
+                    void rs(request.response);
+                }
+                request = void 0;
+                rs = void 0;
+            });
+            void request.addEventListener('error', function () {
+                void rj(request);
+                request = void 0;
+                rj = void 0;
+            });
+        });
+
+        request.then = function (a) {
+            void prom.then(a)
+            a = void 0;
+            prom = void 0;
+            return this;
+        }
+
+        request.catch = function (a) {
+            void prom.catch(a)
+            a = void 0;
+            prom = void 0;
+            return this;
+        }
+
+        request.responseType = 'document'
+        request.open('GET', url)
+        request.send()
+        if (returnPromise) {
+            return prom
+        }
+        return request
+    };
     /**
      * @COMING_SOON </> RouteJs.initExtension(Function, String);
      */
-    RouteJs.initExtension = function () {}
+    RouteJs.initExtension = function () {};
 })();
 
 // RouteJs.initExtension('mapplus',function(properties){

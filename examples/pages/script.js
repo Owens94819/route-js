@@ -5,25 +5,25 @@ var app = new RouteJs('app', {
 
 var duration = 800
 
-var app_event = function(resolve, NEWSibling, OLDSibling) {
-        /**Animation**/
-        var atr = body.querySelectorAll("article")
-        if (atr.length > 1) {
-            var _duration = Math.min(Math.max((window.innerWidth / duration) * 500, 500), duration + 200)
-            body.style.animationDuration = _duration + 'ms'
+var app_event = function (resolve, NEWSibling, OLDSibling) {
+    /**Animation**/
+    var atr = body.querySelectorAll("article")
+    if (atr.length > 1) {
+        var _duration = Math.min(Math.max((window.innerWidth / duration) * 500, 500), duration + 200)
+        body.style.animationDuration = _duration + 'ms'
 
-            atr[0].setAttribute('animate', 'in')
-            atr[1].setAttribute('animate', 'out')
-            body.setAttribute('incoming', '')
+        atr[0].setAttribute('animate', 'in')
+        atr[1].setAttribute('animate', 'out')
+        body.setAttribute('incoming', '')
 
-            setTimeout(function () {
-                resolve()
-                body.removeAttribute('incoming')
-                atr[0].removeAttribute('animate')
-                atr = undefined;
-            }, _duration)
-        }
+        setTimeout(function () {
+            resolve()
+            body.removeAttribute('incoming')
+            atr[0].removeAttribute('animate')
+            atr = undefined;
+        }, _duration)
     }
+}
 
 
 
@@ -38,7 +38,7 @@ onhashchange = function () {
 }
 
 onpopstate = function (e) {
-    // console.log(e);
+    console.log(e);
 }
 
 onhashchange()
@@ -521,4 +521,13 @@ c62.76,0,207.02-261.3,207.02-375.64S1032.58,222.29,918.25,222.29z M918.25,574.58
 c0-77.84,63.1-140.94,140.94-140.94c77.84,0,140.94,63.1,140.94,140.94C1059.19,511.48,996.09,574.58,918.25,574.58z"/><ellipse class="st5" cx="918.25" cy="914.49" rx="148.17" ry="20.03"/></g></g></svg>
 
     `)
+});
+
+
+
+
+d = RouteJs.fetch('../../imgs/about.svg', true);
+
+d.then(function (e) {
+    console.log(e);
 });

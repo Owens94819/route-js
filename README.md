@@ -2,12 +2,14 @@
 # RouteJs
 ```js
 /*JavaScript*/
+RouteJs.extend(Object) //Object
+RouteJs.fetch(Url, Boolean) //Object
 
-var app=new RouteJs(String, Object)
+var app=new RouteJs(Name, Options)
 
-app.map(String, String || Promise || NodeList || Element || Node || app.useTemplate || app.usePromise)
+app.map(Name, String || Promise || NodeList || Element || Node || app.useTemplate || app.usePromise)
 
-app.mapAll(Object)
+app.mapAll(Options)
 
 app.useTemplate(HTMLTemplateElement || Element, Boolean)
 
