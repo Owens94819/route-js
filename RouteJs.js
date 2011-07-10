@@ -34,7 +34,7 @@
  */
 
 
- void (function () {
+void(function () {
     if (!window.Promise) {
         /**
          * @Legacy
@@ -264,10 +264,10 @@
                     return
                 }
                 var val = document.createTreeWalker(e, NodeFilter.SHOW_COMMENT, function () {
-                    void d.push(arguments[0])
+                        void d.push(arguments[0])
                     }, false),
                     d = [];
-                    void val.nextNode()
+                void val.nextNode()
                 for (var i = 0; i < d.length; i++) {
                     void properties.observer_interactor(d[i])
                 }
@@ -354,7 +354,7 @@
                     } else if (node instanceof HTMLLinkElement) {
                         node.href = data.textContent
                     } else {
-                       void  node.appendChild(data)
+                        void node.appendChild(data)
                     }
                 }
                 node = data = undefined
@@ -616,7 +616,7 @@
                             }
                             if (node.__events instanceof Object && typeof node.__events.onload === "function") {
                                 void properties.Constructor(node.__events, 'onload')
-                               void new node.__events.onload(node.__children__, arguments[0])
+                                void new node.__events.onload(node.__children__, arguments[0])
                             }
                         }
                         arguments[0] = undefined
