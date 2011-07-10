@@ -32,7 +32,7 @@ app.createNodeList(String)
 ```
 `A = Route name`
 `B = Map name`
-`C = placeholder(value to be displayed before B loads) or events`
+`C = placeholder(value to be displayed before B becomes available or mapped) or events`
 
 
 ```html
@@ -86,11 +86,84 @@ app.createNodeList(String)
 
 ```html
 <!--HTML-->
-<?A:B {app_events}?>
+<?A:B (app_events)?>
 
 <!-- or -->
-<div route="A:B {app_events}"></div>
+<div route="A:B (app_events)"></div>
 ```
+
+
+```javascript
+    /*JavaScript*/
+    app_events= function(resolve, NEWSibling, OLDSibling) {
+        //onload event
+        console.log('loaded')
+    }
+```
+```html
+<!--HTML-->
+<?A:B (app_events)?>
+
+<!-- or -->
+<div route="A:B (app_events)"></div>
+```
+```html
+<!--HTML-->
+<?A:B (function(resolve, NEWSibling, OLDSibling) {
+        //onload event
+        console.log('loaded')
+    })?>
+
+<!-- or -->
+<div route="A:B (function(resolve, NEWSibling, OLDSibling) {
+        //onload event
+        console.log('loaded')
+    })"></div>
+```
+
+### onload Event
+- fired when content loads. alternative to (onloadend)
+
+#### arguments[0]:
+###### resolve method
+
+#### arguments[1]:
+###### the new Node
+
+#### arguments[2]:
+###### the previous Node
+
+
+### onloadstart Event
+- fired before content loads
+#### arguments[0]:
+###### resolve method
+
+#### arguments[1]:
+###### the new Node
+
+#### arguments[2]:
+###### the previous Node
+
+### onloadend Event
+- fired after content loads
+#### arguments[0]:
+###### resolve method
+
+#### arguments[1]:
+###### the new Node
+
+#### arguments[2]:
+###### the previous Node
+
+### placeholder
+- value has placeholder before content is available
+```javascript
+placeholder: String || NodeList || Element
+```
+
+### resolve
+ - this method when fired would remove the pervious Nodes leaving just the new Node
 
 # Examples
  `javascript`
