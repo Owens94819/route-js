@@ -1,21 +1,27 @@
+* {
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+}
+
 body {
     display: flex;
     justify-content: center;
-    /* overflow: hidden; */
-    flex-direction: row-reverse;
     margin: 0;
     width: auto;
     overflow: auto;
-    /* justify-content: flex-end; */
     scroll-behavior: smooth;
     padding: 36px 7vw;
     background: inherit;
 
 }
 
+[incoming] {
+    pointer-events: none;
+}
+
 html {
     scroll-behavior: smooth;
-    /* scrollbar-gutter: stable; */
 }
 
 .slide {
@@ -49,15 +55,25 @@ button {
 }
 
 
-[p] {
-     position: fixed;
-     z-index: 1;
-     animation: slideIn 0.4s 1 ease-in-out;
-    -webkit-animation: slideIn 0.4s 1 ease-in-out;
+
+[animate] {
+    position: fixed;
+    animation-duration: 400ms;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: 1;
+}
+
+[animate="in"] {
+    z-index: 1;
+    animation-name: slideIn;
+}
+
+[animate="out"] {
+    animation-name: slideOut;
 }
 
 article {
-    box-shadow: inset -5px 0px 0px red;
+    /* box-shadow: inset -5px 0px 0px red; */
     background: inherit;
 }
 
@@ -76,5 +92,23 @@ article {
         -moz-transform: translateX(0);
         -ms-transform: translateX(0);
         -o-transform: translateX(0);
+    }
+}
+
+@keyframes slideOut {
+    from {
+        transform: translateX(0);
+        -webkit-transform: translateX(0);
+        -moz-transform: translateX(0);
+        -ms-transform: translateX(0);
+        -o-transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(-50vw);
+        -webkit-transform: translateX(-50vw);
+        -moz-transform: translateX(-50vw);
+        -ms-transform: translateX(-50vw);
+        -o-transform: translateX(-50vw);
     }
 }

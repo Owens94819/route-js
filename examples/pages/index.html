@@ -58,26 +58,27 @@
 
 <body id="bd">
     <script>
-        d = {
-            onloadstart(node) {
-                node.pending = true
-                return new Promise(function (r) {
-                    setTimeout(function () {
-                        var atr = document.body.querySelector("article[p]")
-                        bd.removeAttribute('incoming')
-                        if (atr) {
-                            atr.removeAttribute('p')
-                        }
-                        node.pending = false;
-                        r()
-                    }, 700)
-                })
-            },
-            onloadend(currentNode, nextNode) {
+        function h() {
+            console.log(this);
+        }
+        var d = {
+            onloadend: function () {
+                var r = this.resolve
                 var atr = document.body.querySelectorAll("article")
+
                 if (1 < atr.length) {
-                    atr[0].setAttribute('p', '')
+                    atr[0].onwebkitanimationend = function () {
+                        console.log(8);
+                    }
+                    atr[0].setAttribute('animate', 'in')
+                    atr[1].setAttribute('animate', 'out')
                     bd.setAttribute('incoming', '')
+                    setTimeout(function () {
+                        r()
+                        var atr = document.body.querySelector("article")
+                        bd.removeAttribute('incoming')
+                        atr.removeAttribute('animate')
+                    }, 400)
                 }
             }
         }

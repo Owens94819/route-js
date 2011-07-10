@@ -462,19 +462,46 @@
                 if (!ch && !x_data && node.__children__) {
                     var ev;
 
-                    if ( (ev = properties.$(node.__events, 'onloadstart',[node])) instanceof Promise) {
+                    if (node.__events instanceof Object) {
+
                         var n = {
-                            __children__: node.__children__,
-                            node:node
+                            __children__: node.__children__
                         }
-                            node.__children__ = []
-                            // node.pending = 1
-                            ev.then(function () {
-                                n.node.pending = 0
+                        node.__children__ = []
+
+                        switch (true) {
+                            case (typeof node.__events.onloadend === "function"):
+                                node.__events.onloadend.prototype.resolve = function () {
+                                    properties.re_entries(n)
+                                    n = undefined
+                                }
+                            case (typeof node.__events.onloadstart === "function"):
+                                node.__events.onloadstart.prototype.resolve = function () {
+                                    properties.re_entries(n)
+                                    n = undefined
+                                }
+                                new node.__events.onloadstart()
+                                break;
+                            default:
                                 properties.re_entries(n)
                                 n = undefined
-                            });
-                       
+                                break;
+                        }
+
+                        // if (typeof node.__events.onloadend === "function") {
+                        //     node.__events.onloadend.prototype.resolve = function () {
+                        //         properties.re_entries(n)
+                        //         n = undefined
+                        //     }
+                        // }
+                        // if (typeof node.__events.onloadstart === "function") {
+                        //     node.__events.onloadstart.prototype.resolve = function () {
+                        //         properties.re_entries(n)
+                        //         n = undefined
+                        //     }
+                        //     ev= new node.__events.onloadstart()
+                        // }
+
                     } else {
                         properties.re_entries(node)
                         node.__children__ = []
@@ -615,7 +642,9 @@
                         } else {
                             node.target_child = node;
                             properties.entries(node, arguments[0])
-                            properties.$(node.__events, 'onloadend',[node.__children__,arguments[0]])
+                            if (node.__events instanceof Object && typeof node.__events.onloadend === "function") {
+                                new node.__events.onloadend(node.__children__, arguments[0])
+                            }
                         }
                         arguments[0] = undefined
                     })
