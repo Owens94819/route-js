@@ -197,11 +197,11 @@ void(function () {
 
                 store.data = store.data || data || {};
                 store.events = store.events || {};
-                if (!store.eventhandler) {
-                    store.eventhandler = {}
-                }
+                // if (!store.eventhandler) {
+                //     store.eventhandler = {}
+                // }
                 i = i - 1
-                return store.eventhandler[type[i]] = store.eventhandler[type[i]] || {
+                return /*store.eventhandler[type[i]] = store.eventhandler[type[i]] || */{
                     name: [String(type), type],
                     emit: function (name, data) {
                         if (arguments.length > 1) {

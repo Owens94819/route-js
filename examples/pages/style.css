@@ -93,6 +93,7 @@ article {
     -webkit-animation-iteration-count: 1;
 }
 
+
 @keyframes slideIn {
     from {
         transform: translateX(100vw);

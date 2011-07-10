@@ -17,11 +17,11 @@ var app_event = function (resolve, NEWSibling, OLDSibling) {
         body.setAttribute('incoming', '')
 
         setTimeout(function () {
-            resolve()
+            resolve();
             body.removeAttribute('incoming')
             atr[0].removeAttribute('animate')
             atr = undefined;
-        }, _duration)
+        }, _duration+50)
     }
 }
 
@@ -37,9 +37,9 @@ onhashchange = function () {
     app.map('name', hash[hash.length - 1] || "home")
 }
 
-onpopstate = function (e) {
-    console.log(e);
-}
+// onpopstate = function (e) {
+//     console.log(e);
+// }
 
 onhashchange()
 
@@ -526,8 +526,8 @@ c0-77.84,63.1-140.94,140.94-140.94c77.84,0,140.94,63.1,140.94,140.94C1059.19,511
 
 
 
-d = RouteJs.fetch('../../imgs/about.svg', true);
+// d = RouteJs.fetch('../../imgs/about.svg', true);
 
-d.then(function (e) {
-    console.log(e);
-});
+// d.then(function (e) {
+//     console.log(e);
+// });
