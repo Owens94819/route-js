@@ -109,7 +109,7 @@ void(function () {
             },
             Constructor: function (obj, str) {
                 if (obj[str].prototype) {
-                    return
+                    return void 0
                 }
                 var d = obj[str]
                 d = d.toString()
@@ -120,12 +120,11 @@ void(function () {
                     d = 'return  (function F' + d + ')'
                 }
                 obj[str] = new Function("\"use strict\";" + d)();
-                d = undefined
-                return
+                return d=void 0
             },
             $: function () {
                 if ((arguments[0] instanceof Object) === false && "string" !== typeof arguments[0]) {
-                    return
+                    return void 0
                 }
                 for (var i = 1; i < arguments.length; i++) {
                     if ("number" === typeof arguments[i]) {
@@ -153,6 +152,7 @@ void(function () {
                                     }
                                 }
                                 arguments[0] = eval('arguments[0][arguments[i]](' + s + ')')
+                                s=_i=void 0;
                             } else {
                                 return
                             }
@@ -171,15 +171,16 @@ void(function () {
                             }
                             var _p = arguments[0]
                             arguments[0] = eval('_p(' + s + ')')
-                            _p = null
+                            _p =s=_i=void 0;
                         } else {
-                            return
+                            return void 0
                         }
                     }
                     if (arguments[0] === null || arguments[0] === undefined) {
                         break;
                     }
                 }
+                i=void 0;
                 return arguments[0]
             },
             Event: function (type, data) {
@@ -210,7 +211,7 @@ void(function () {
                                 void store.events[name][i](store.data[name])
                             }
                         }
-                        data = undefined
+                        return data=name=i=void 0
                     },
                     on: function (name, foo) {
                         if (store.events[name] instanceof Array) {
@@ -221,13 +222,13 @@ void(function () {
                         if (store.data.hasOwnProperty(name)) {
                             void foo(store.data[name])
                         }
-                        foo = undefined
+                        return foo = name =void 0
                     },
                     get: function (name) {
                         if (store.data.hasOwnProperty(name)) {
                             return store.data[name]
                         }
-                        return null
+                        return name=void 0
                     },
                     has: function (name) {
                         return store.data.hasOwnProperty(name)
@@ -246,19 +247,19 @@ void(function () {
                             void foo(e[i].addedNodes[_i]);
                         }
                     }
-                    e = undefined;
+                    return e = i= void 0;
                 }).observe(elm || document, {
                     childList: true,
                     characterData: true,
                     subtree: true,
                 });
-                elm = void 0;
+                return elm = void 0;
             } : function (foo, elm) {
                 elm.addEventListener('DOMNodeInserted', function (e) {
                     foo(e.target);
-                    e = undefined
+                    e = void 0;
                 })
-                elm = undefined
+                return elm = void 0;
             }),
             observer: function () {
                 void properties._observer(properties.observer_interactor, document)
@@ -275,7 +276,7 @@ void(function () {
                 for (var i = 0; i < d.length; i++) {
                     void properties.observer_interactor(d[i]);
                 }
-                e = val = d = void 0;
+                return e = val = d = void 0;
             },
             observer_interactor: function (e) {
                 if (e instanceof Comment && e.parentNode && e.data[0] + e.data[e.data.length - 1] === '??') {
@@ -289,14 +290,14 @@ void(function () {
                             for (var i = 0; i < _e.length; i++) {
                                 void properties.observer_callback(_e[i], properties.nameSpace.element_flag)
                             }
-                            _e = undefined;
+                            _e = i=void 0;
                             void properties.observer_treeWalker(e);
                         }
                     } else {
                         void properties.observer_treeWalker(e);
                     }
                 }
-                e = undefined
+               return e = void 0;
             },
             re_entries: function (node) {
                 if (!node) {
@@ -331,7 +332,6 @@ void(function () {
                 if (!(data instanceof Node)) {
                     data = document.createTextNode(data)
                 }
-
 
                 if (node.hasAttribute(properties.nameSpace.attribute + '-target')) {
                     node.__target = node.getAttribute(properties.nameSpace.attribute + '-target')
@@ -497,6 +497,7 @@ void(function () {
             stringtolist: function (e) {
                 var elm = arguments.callee.elm.cloneNode()
                 elm.innerHTML = e;
+                e=void 0
                 return elm.childNodes
             },
             observer_callback: function (e, type) {
@@ -516,7 +517,7 @@ void(function () {
                     e.data = e.getAttribute(properties.nameSpace.attribute)
                     void e.removeAttribute(properties.nameSpace.attribute)
                     if (!e.data) {
-                        return
+                        return void 0
                     }
                     node = e
                     data = e.data;
@@ -533,7 +534,7 @@ void(function () {
                         void e.parentElement.replaceChild(node, e)
                     }
 
-                    type = undefined
+                    type = void 0;
                     data = e.data.substring(1, e.data.length - 1)
                 }
 
