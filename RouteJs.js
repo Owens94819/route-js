@@ -302,22 +302,25 @@ void(function () {
                 if (!node) {
                     return
                 }
-                for (var i = node.__children__.length - 1; i >= 0; i--) {
-                    if (node.__children__[i].__children__) {
-                        void properties.re_entries(node.__children__[i])
+                if (node instanceof Element) {
+                    node=node.__children__
+                }
+                
+                for (var i = node.length - 1; i >= 0; i--) {
+                    if (node[i].__children__) {
+                        void properties.re_entries(node[i])
                     } else {
-                        if (node.__children__[i]._points_to) {
-                            void properties.re_entries(node.__children__[i]._points_to)
+                        if (node[i]._points_to) {
+                            void properties.re_entries(node[i]._points_to)
                         } else {
-                            void node.__children__[i].remove()
+                            void node[i].remove()
                         }
                     }
                 }
-                node = undefined
+                return node = i = void 0
             },
-            type_entries: function (node, data, i) {
+            type_entries: function (node, data, ch) {
                 // if (data instanceof NodeList || data instanceof Array) {
-
                 //     for (var i = 0; i < data.length; i++) {
                 //         void properties.type_entries(node, data[i], i)
                 //     }
@@ -335,7 +338,8 @@ void(function () {
                 }
 
                 if (void(0)&&node.__target) {
-                    if (i) {
+                    /** depreciating this part for now */
+                    if (ch) {
                         for (var i = 0; i < node.__target.length; i++) {
                             node[node.__target[i].trim()] += data.textContent
                         }
@@ -345,40 +349,40 @@ void(function () {
                         }
                     }
                 } else {
-                    if (node.__events.hasEventProperty === "true") {
-                        if (!node.previousNode) {
-                            node.previousNode = {
-                                __children__: []
+                    if (node.__events.hasEventProperty === "true"&&!ch) {
+                            if (!node.previousNode) {
+                                node.previousNode = {
+                                    __children__: []
+                                }
                             }
-                        }
-                        if (!i) {
                             for (var i = 0; i < node.childNodes.length; i++) {
-                                node.previousNode.__children__.push(node.childNodes[i])
+                                void node.previousNode.__children__.push(node.childNodes[i])
                             }
-                        }
-                    } else {
-                        if (!i) {
-                            node.innerHTML = ''
-                            node.value = ''
-                        }
+                    } else if(!ch) {
+                        properties.re_entries(node.childNodes)
+                        // node.innerHTML = ''
+                            // node.value = ''
                     }
-                    if (node instanceof HTMLTitleElement) {
-                        node.innerText += data.textContent
-                    } else if (node instanceof HTMLInputElement) {
-                        node.value += data.textContent
-                    } else if (node instanceof HTMLLinkElement) {
-                        node.href = data.textContent
-                    } else if (node.hasOwnProperty('src')) {
-                        node.src = data.textContent
-                    } else {
+
+                    // if (node instanceof HTMLTitleElement) {
+                    //     node.innerText += data.textContent
+                    // } else 
+                    
+                    // if (node instanceof HTMLInputElement) {
+                    //     node.value += data.textContent
+                    // } else if (node instanceof HTMLLinkElement) {
+                    //     node.href = data.textContent
+                    // } else if (node.hasOwnProperty('src')) {
+                    //     node.src = data.textContent
+                    // } else {
                         if (node.firstElementChild) {
                             void node.insertBefore(data, node.firstElementChild);
                         } else {
                             void node.appendChild(data);
                         }
-                    }
+                    // }
                 }
-                node = data = undefined
+               return node = data = i=void  0
             },
             entries: function (node, data, ch, cloned, x_data) {
                 if (data instanceof Object && data['[[man-formed]]']) {
@@ -386,16 +390,14 @@ void(function () {
                     data = '';
                 } else if (data instanceof this.APPTemplate) {
                     void properties.entries(node, data.content, ch, !data.clone, x_data)
-                    x_data = node = data = undefined
-                    return
+                    return x_data = node = data = void 0
                 } else if (data instanceof DocumentFragment) {
                     if (cloned) {
                         void properties.entries(node, data.childNodes, ch, true)
                     } else {
                         void properties.entries(node, data.cloneNode(true).childNodes, ch, true)
                     }
-                    x_data = node = data = undefined
-                    return
+                    return x_data = node = data = void 0
                 } else if (data instanceof NodeList) {
                     if (cloned) {
                         for (var i = 0; data.length > 0; i++) {
@@ -412,8 +414,7 @@ void(function () {
                             void properties.entries(node, data[i], i, cloned, x_data)
                         }
                     }
-                    x_data = node = data = undefined
-                    return
+                    return x_data = node = data = i=void 0
                 } else if (data instanceof Node && !cloned) {
                     data = data.cloneNode(true)
                 } else if (typeof data === 'function') {
@@ -425,10 +426,10 @@ void(function () {
                         data.then(function () {
                             node.pending = 0
                             ev.emit(node.__data__[1], arguments[0])
-                            ev = node = x_data = data = undefined
+                            ev = node = x_data = data = void 0
                         });
                     }
-                    return
+                    return void 0
                 } else if (data instanceof properties.APPPromise) {
                     var ev = properties.store[node.__data__[0]]
                     if (ev) {
@@ -437,10 +438,10 @@ void(function () {
                             ch.data = arguments[0]
                             ch.pending = 0
                             ev.emit(node.__data__[1], ch)
-                            ch = ev = node = x_data = data = undefined
+                            ch = ev = node = x_data = data = void 0
                         });
                     }
-                    return
+                    return void 0
                 }
                 if (!data && typeof data !== 'string') {
                     void properties.console.warn('unknow value of "' + data + '"', data)
@@ -452,8 +453,7 @@ void(function () {
                 }
 
                 if (node instanceof Element) {
-                    void properties.type_entries(node, data, ch)
-                    return
+                   return void properties.type_entries(node, data, ch)
                 }
 
                 if (!(data instanceof Node)) {
@@ -478,12 +478,12 @@ void(function () {
                 if (x_data) {
                     node.target_child = x_data;
                     void x_data.parentElement.insertBefore(data, x_data)
-                    x_data = undefined;
+                    x_data = void 0;
                 } else {
                     if (node.target_child.nextSibling) {
-                        node.parentElement.insertBefore(data, node.target_child.nextSibling)
+                        void node.parentElement.insertBefore(data, node.target_child.nextSibling)
                     } else {
-                        node.parentElement.appendChild(data)
+                        void node.parentElement.appendChild(data)
                     }
                 }
                 if (!node.__children__) {
@@ -491,7 +491,7 @@ void(function () {
                 } else {
                     void node.__children__.push(node.target_child = data)
                 }
-                ev = data = node = void 0;
+               return ev = data = node = void 0;
             },
             stringtolist: function (e) {
                 var elm = arguments.callee.elm.cloneNode()
@@ -504,7 +504,7 @@ void(function () {
 
                 if (type === properties.nameSpace.element_flag) {
                     if (!e.getAttribute) {
-                        return
+                        return void 0
                     }
                     if (e.hasAttribute(properties.nameSpace.attribute + '-target')) {
                         e.__target = e.getAttribute(properties.nameSpace.attribute + '-target')
