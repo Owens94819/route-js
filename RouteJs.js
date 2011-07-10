@@ -448,30 +448,14 @@ void(function () {
 
                 if (!ch && !x_data) {
                     if (node.__events instanceof Object) {
-                        // var ev;
                         node.previousNode = {
                             __children__: node.__children__ || []
                         }
 
                         node.__children__ = []
 
-                        // if (typeof node.__events.onloadend === "function") {
-                        //     void properties.Constructor(node.__events, 'onloadend')
-                        //     node.__events.onloadend.prototype.resolve = node.__events.resolve
-                        //     ev = 1
-                        // }
-
-                        // if (typeof node.__events.onload === "function") {
-                        //     void properties.Constructor(node.__events, 'onload')
-                        //     node.__events.onload.prototype.resolve = node.__events.resolve
-                        //     ev = 1
-                        // }
-
                         if (typeof node.__events.onloadstart === "function") {
-                            // void properties.Constructor(node.__events, 'onloadstart')
-                            // node.__events.onloadstart.prototype.resolve = node.__events.resolve
                             void node.__events.onloadstart(node.__events.resolve, null, null)
-                            // ev = 1
                         }
 
                         if (!(node.__events.onloadend || typeof node.__events.onload || typeof node.__events.onloadstart)) {
@@ -628,11 +612,9 @@ void(function () {
                             node.target_child = node;
                             void properties.entries(node, arguments[0])
                             if (node.__events instanceof Object && typeof node.__events.onloadend === "function") {
-                                // void properties.Constructor(node.__events, 'onloadend')
                                 void node.__events.onloadend(node.__events.resolve, node.__children__, arguments[0])
                             }
                             if (node.__events instanceof Object && typeof node.__events.onload === "function") {
-                                // void properties.Constructor(node.__events, 'onload')
                                 void node.__events.onload(node.__events.resolve, node.__children__, arguments[0])
                             }
                         }
