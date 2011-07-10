@@ -10,18 +10,19 @@ var app_event = {
     onload() {
         /**Animation**/
         var r = this.resolve
-        var atr = bd.querySelectorAll("article")
+        var atr = body.querySelectorAll("article")
         if (1 < atr.length) {
-            bd.style.animationDuration = Math.min(Math.max((window.innerWidth / duration) * 500, 500), 700) + 'ms'
+            var _duration = Math.min(Math.max((window.innerWidth / duration) * 500, 500), 700)
+            body.style.animationDuration = _duration + 'ms'
             atr[0].setAttribute('animate', 'in')
             atr[1].setAttribute('animate', 'out')
-            bd.setAttribute('incoming', '')
+            body.setAttribute('incoming', '')
             setTimeout(function () {
-               r()
-                bd.removeAttribute('incoming')
+                r()
+                body.removeAttribute('incoming')
                 atr[0].removeAttribute('animate')
                 atr = undefined;
-            }, Math.min(Math.max((window.innerWidth / duration) * 500, 500), 700))
+            }, _duration)
         }
     }
 }
