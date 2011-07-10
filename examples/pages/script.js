@@ -32,8 +32,9 @@ onhashchange = function () {
     if (!hash) {
         hash = '#'
     }
-    app.map('contents', app.useTemplate(document.querySelector('[path="' + hash + '"]') || document.querySelector('[_404]')))
-    app.map('name', hash.split("#")[hash.length - 1] || "home")
+    app.map('contents', app.useTemplate(document.querySelector('[path="' + hash + '"]') || (hash="#Not found",document.querySelector('[_404]'))))
+    hash=hash.split("#")
+    app.map('name', hash[hash.length - 1] || "home")
 }
 
 onhashchange()
