@@ -300,12 +300,13 @@ void(function () {
             },
             re_entries: function (node) {
                 if (!node) {
-                    return
+                    return node = void 0
                 }
-                if (node instanceof Element) {
+
+                if (!(node instanceof NodeList)) {
                     node=node.__children__
                 }
-                
+
                 for (var i = node.length - 1; i >= 0; i--) {
                     if (node[i].__children__) {
                         void properties.re_entries(node[i])
@@ -359,9 +360,9 @@ void(function () {
                                 void node.previousNode.__children__.push(node.childNodes[i])
                             }
                     } else if(!ch) {
-                        properties.re_entries(node.childNodes)
+                        void properties.re_entries(node.childNodes);
                         // node.innerHTML = ''
-                            // node.value = ''
+                        //     node.value = ''
                     }
 
                     // if (node instanceof HTMLTitleElement) {
@@ -382,7 +383,7 @@ void(function () {
                         }
                     // }
                 }
-               return node = data = i=void  0
+               return node = data = i=void  0;
             },
             entries: function (node, data, ch, cloned, x_data) {
                 if (data instanceof Object && data['[[man-formed]]']) {
@@ -577,6 +578,7 @@ void(function () {
                     } catch (error) {
                         data = void 0;
                         void properties.console.error(error)
+                        error = void 0;
                     }
                 }
 
@@ -610,15 +612,14 @@ void(function () {
 
                 data = e = void 0;
 
-                properties.events.on(node.__data__[0], function () {
-                    arguments[0].on(node.__data__[1], function () {
+                return void properties.events.on(node.__data__[0], function () {
+                    return void arguments[0].on(node.__data__[1], function () {
                         if (arguments[0] instanceof properties.APPConstant) {
                             node.pending = arguments[0].pending
                             arguments[0] = arguments[0].data
                         } else {
                             if (node.pending) {
-                                arguments[0] = undefined
-                                return
+                                return arguments[0] = void 0;
                             }
                         }
 
@@ -639,10 +640,10 @@ void(function () {
                         if (node.__events instanceof Object && typeof node.__events.onload === "function") {
                             void node.__events.onload(node.__events.resolve, null, null)
                         }
-                        arguments[0] = void 0
-                    })
-                    arguments[0] = void 0
-                })
+                       return arguments[0] = void 0
+                    }),
+                    arguments[0] = void 0;
+                });
             },
             console: console,
             store: {}
