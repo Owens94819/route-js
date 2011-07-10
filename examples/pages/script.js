@@ -5,12 +5,7 @@ var app = new RouteJs('app', {
 
 var duration = 800
 
-var app_event = {
-    placeholder: function () {
-        return "ppp"
-    },
-
-    onload(resolve, NEWSibling, OLDSibling) {
+var app_event = function(resolve, NEWSibling, OLDSibling) {
         /**Animation**/
         var atr = body.querySelectorAll("article")
         if (atr.length > 1) {
@@ -28,12 +23,8 @@ var app_event = {
                 atr = undefined;
             }, _duration)
         }
-    },
-
-    onloadstart(resolve, NEWSibling, OLDSibling) {
-        console.log(NEWSibling, OLDSibling, this);
     }
-}
+
 
 
 onhashchange = function () {

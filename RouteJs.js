@@ -546,6 +546,8 @@ void(function () {
                         node.__events = new Function('"use strict";return ' + data)();
                         if (typeof node.__events === "object") {
                             node.__events = Object.create(node.__events);
+                        }else if(typeof node.__events === "function"){
+                            node.__events = Object.create({onload:node.__events});
                         } else {
                             node.__events = {}
                         }
