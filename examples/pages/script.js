@@ -7,6 +7,7 @@ new RouteJs('lib', lib);
 var duration = 500
 
 var app_event = {
+    preventDefault: true,
     onloadend() {
         /**Animation**/
         var r = this.resolve
@@ -17,7 +18,7 @@ var app_event = {
             atr[1].setAttribute('animate', 'out')
             bd.setAttribute('incoming', '')
             setTimeout(function () {
-                r()
+               // r()
                 bd.removeAttribute('incoming')
                 atr[0].removeAttribute('animate')
                 atr = undefined;
