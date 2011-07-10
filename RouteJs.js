@@ -611,7 +611,7 @@ void(function () {
                             node.target_child = node;
                             void properties.entries(node, arguments[0])
                             if (node.__events instanceof Object && typeof node.__events.onloadend === "function") {
-                                void node.__events.onloadend(node.__events.resolve, null/**NEWSibling*/, null /**OLDSibling*/)
+                                void node.__events.onloadend(node.__events.resolve, null /**NEWSibling*/ , null /**OLDSibling*/ )
                             }
                             if (node.__events instanceof Object && typeof node.__events.onload === "function") {
                                 void node.__events.onload(node.__events.resolve, null, null)
