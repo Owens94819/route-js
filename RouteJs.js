@@ -322,12 +322,6 @@ void(function () {
                 return node = i = void 0
             },
             type_entries: function (node, data, ch) {
-                // if (data instanceof NodeList || data instanceof Array) {
-                //     for (var i = 0; i < data.length; i++) {
-                //         void properties.type_entries(node, data[i], i)
-                //     }
-                //     return
-                // }
 
                 if (!(data instanceof Node)) {
                     data = document.createTextNode(data)
@@ -361,27 +355,13 @@ void(function () {
                             }
                     } else if(!ch) {
                         void properties.re_entries(node.childNodes);
-                        // node.innerHTML = ''
-                        //     node.value = ''
                     }
 
-                    // if (node instanceof HTMLTitleElement) {
-                    //     node.innerText += data.textContent
-                    // } else 
-                    
-                    // if (node instanceof HTMLInputElement) {
-                    //     node.value += data.textContent
-                    // } else if (node instanceof HTMLLinkElement) {
-                    //     node.href = data.textContent
-                    // } else if (node.hasOwnProperty('src')) {
-                    //     node.src = data.textContent
-                    // } else {
                         if (node.firstElementChild) {
                             void node.insertBefore(data, node.firstElementChild);
                         } else {
                             void node.appendChild(data);
                         }
-                    // }
                 }
                return node = data = i=void  0;
             },
@@ -740,7 +720,7 @@ void(function () {
 
         void Object.freeze(this)
         void this.mapAll(object)
-        object = undefined
+        object = name= void 0
         void properties.events.emit(this.name, store)
     }
 
