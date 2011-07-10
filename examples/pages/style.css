@@ -70,7 +70,7 @@ button {
 [animate] {
     position: fixed;
     animation-duration: inherit;
-    animation-timing-function: ease-in-out;
+    animation-timing-function: cubic-bezier(0.445, 0.05, 0.55, 0.95);
     animation-iteration-count: 1;
     /* animation-direction: reverse; */
 }
