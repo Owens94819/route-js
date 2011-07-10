@@ -2,11 +2,12 @@ body {
     display: flex;
     justify-content: center;
     overflow: hidden;
+    flex-direction: row-reverse;
 }
 
-article{
-    animation: slideIn 0.1s 1 ease-in-out;
-    -webkit-animation: slideIn 0.1s 1 ease-in-out;
+.slide{
+    animation: slideIn 7s 1 ease-in-out;
+    -webkit-animation: slideIn 7s 1 ease-in-out;
 }
 
 h2,h1 {
@@ -34,17 +35,17 @@ button{
 
 @keyframes slideIn {
     from{
-        transform: translateX(90vw);
-        -webkit-transform: translateX(90vw);
-        -moz-transform: translateX(90vw);
-        -ms-transform: translateX(90vw);
-        -o-transform: translateX(90vw);
+        transform: translateX(-100vw);
+        -webkit-transform: translateX(-100vw);
+        -moz-transform: translateX(-100vw);
+        -ms-transform: translateX(-100vw);
+        -o-transform: translateX(-100vw);
 }
 to{
-    transform: translateX(0px);
-    -webkit-transform: translateX(0px);
-    -moz-transform: translateX(0px);
-    -ms-transform: translateX(0px);
-    -o-transform: translateX(0px);
+    transform: translateX(0);
+    -webkit-transform: translateX(0);
+    -moz-transform: translateX(0);
+    -ms-transform: translateX(0);
+    -o-transform: translateX(0);
 }
 }

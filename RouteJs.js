@@ -459,9 +459,26 @@
                     data = document.createTextNode(data)
                 }
 
-                if (!ch && !x_data) {
-                    properties.re_entries(node)
-                    node.__children__ = []
+                if (!ch && !x_data && node.__children__) {
+                    var ev;
+
+                    if ( (ev = properties.$(node.__events, 'onchange',[node.__children__,data])) instanceof Promise) {
+                        var n = {
+                            __children__: node.__children__,
+                            node:node
+                        }
+                            node.__children__ = []
+                            node.pending = 1
+                            ev.then(function () {
+                                n.node.pending = 0
+                                properties.re_entries(n)
+                                n = undefined
+                            });
+                       
+                    } else {
+                        properties.re_entries(node)
+                        node.__children__ = []
+                    }
                 }
 
                 if (x_data) {
@@ -475,7 +492,11 @@
                         node.parentElement.appendChild(data)
                     }
                 }
-                node.__children__.push(node.target_child = data)
+                if (!node.__children__) {
+                    node.__children__ = [node.target_child = data]
+                } else {
+                    node.__children__.push(node.target_child = data)
+                }
                 ev = data = node = undefined
             },
             stringtolist: function (e) {
@@ -521,7 +542,7 @@
                     }
 
                     type = undefined
-                    node.__children__ = []
+                    // node.__children__ = []
                     data = e.data.substring(1, e.data.length - 1)
                 }
 
@@ -534,14 +555,14 @@
 
                 node.__data__ = node.__data__.split(':')
                 data = data[2]
-                if (data&&data[1]+data[data.length-1]==='{}') {
+                if (data && data[1] + data[data.length - 1] === '{}') {
                     try {
-                        node.__events=new Function('"use strict";return '+data)();
+                        node.__events = new Function('"use strict";return ' + data)();
                     } catch (error) {
                         properties.console.error(error)
                     }
                     // console.log(node.__events,properties.$(node.__events,'onchange',[9]));
-                }else if (data && !type) {
+                } else if (data && !type) {
                     data = data.trim()
                     if ('#'.includes(data[0])) {
                         data = document.querySelector(data);

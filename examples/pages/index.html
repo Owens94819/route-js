@@ -10,8 +10,8 @@
             "404-img": (img = new Image(), img.src = "../../imgs/404.svg", img)
         }
     </script>
-    <template path='#'>
-        <article>
+    <template path='#'>1
+        <article xclass="slide">
             <?lib:home-img?>
             <h1>Home</h1>
             <p>
@@ -21,9 +21,9 @@
                 <button onclick="location.href='#about'">Check About Page</button>
             </p>
         </article>
-    </template>
-    <template path='#about'>
-        <article>
+    2</template>
+    <template path='#about'>1
+        <article xclass="slide">
             <?lib:about-img?>
             <h1>About</h1>
             <p>
@@ -33,9 +33,9 @@
                 <button onclick="location.replace('#')">Check Home Page</button>
             </p>
         </article>
-    </template>
-    <template _404>
-        <article>
+    2</template>
+    <template _404>1
+        <article xclass="slide">
             <?lib:404-img?>
             <h2>location not fund</h2>
             <p>
@@ -45,7 +45,7 @@
                 <button onclick="location.replace('#')">Go Home Page</button>
             </p>
         </article>
-    </template>
+    2</template>
     <link rel="stylesheet" href="../../themes/default.css">
     <link rel="stylesheet" href="style.css">
     <script src="../../RouteJs.js"></script>
@@ -58,12 +58,17 @@
 
 <body>
     <?app:contents {
-        onchange() {
-          return new Promise(function(r){
-            setTimeout(function(){
-            r()
-            },1000)
-          })
+        onchange(currentNode,nextNode) {
+            var atr=document.body.querySelector("article")
+            console.log(document.body.innerHTML)
+          if(atr){
+            return new Promise(function(r){
+                atr.className='slide'
+                setTimeout(function(){
+                r()
+                },7000)
+              })
+          }
         }
     }?>
 </body>
