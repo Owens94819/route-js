@@ -34,7 +34,7 @@
  */
 
 
-(function () {
+ void (function () {
     if (!window.Promise) {
         /**
          * @Legacy
@@ -42,7 +42,7 @@
         window.Promise = new Function()
         Node.prototype.remove = function () {
             if (this.parentNode) {
-                this.parentNode.removeChild(this)
+                void this.parentNode.removeChild(this)
             }
         }
         String.prototype.includes = function () {
@@ -50,10 +50,10 @@
         }
 
         var DOMOBserver = window.document.createEvent("Event");
-        DOMOBserver.initEvent("DOMNodeInserted", true, true)
-        document.documentElement.dispatchEvent(DOMOBserver)
-        setInterval(function () {
-            document.documentElement.dispatchEvent(DOMOBserver)
+        void DOMOBserver.initEvent("DOMNodeInserted", true, true)
+        void document.documentElement.dispatchEvent(DOMOBserver)
+        void setInterval(function () {
+            void document.documentElement.dispatchEvent(DOMOBserver)
         }, 500)
     }
 
@@ -92,7 +92,7 @@
                 }
             },
             APPTemplate: function () {
-                properties.console.warn('you\'re using an experimenter feature.\n useTemplate(,<Boolean>)');
+                void properties.console.warn('you\'re using an experimenter feature.\n useTemplate(,<Boolean>)');
                 if (arguments.length >= 2) {
                     this.clone = arguments[1]
                 } else {
@@ -101,8 +101,8 @@
 
                 arguments[0] = arguments[0].cloneNode(true);
                 var d = document.createElement('route:template')
-                d.appendChild(arguments[0])
-                properties.observer_interactor(d)
+                void d.appendChild(arguments[0])
+                void properties.observer_interactor(d)
                 this.content = d
                 d = arguments[0] = undefined
             },
@@ -203,7 +203,7 @@
                         }
                         if (store.events.hasOwnProperty(name)) {
                             for (var i = 0; i < store.events[name].length; i++) {
-                                store.events[name][i](store.data[name])
+                                void store.events[name][i](store.data[name])
                             }
                         }
                         data = undefined
@@ -215,7 +215,7 @@
                             store.events[name] = [foo]
                         }
                         if (store.data.hasOwnProperty(name)) {
-                            foo(store.data[name])
+                            void foo(store.data[name])
                         }
                         foo = undefined
                     },
@@ -236,10 +236,10 @@
                 };
             },
             _observer: (window.MutationObserver ? function (foo, elm) {
-                new window.MutationObserver(function (e) {
+                void new window.MutationObserver(function (e) {
                     for (var i = 0; i < e.length; i++) {
                         for (var _i = 0; _i < e[i].addedNodes.length; _i++) {
-                            foo(e[i].addedNodes[_i]);
+                            void foo(e[i].addedNodes[_i]);
                         }
                     }
                     e = undefined
@@ -257,39 +257,39 @@
                 elm = undefined
             }),
             observer: function () {
-                properties._observer(properties.observer_interactor, document)
+                void properties._observer(properties.observer_interactor, document)
             },
             observer_treeWalker: function (e) {
                 if (e.childNodes.length < 1) {
                     return
                 }
                 var val = document.createTreeWalker(e, NodeFilter.SHOW_COMMENT, function () {
-                        d.push(arguments[0])
+                    void d.push(arguments[0])
                     }, false),
                     d = [];
-                val.nextNode()
+                    void val.nextNode()
                 for (var i = 0; i < d.length; i++) {
-                    properties.observer_interactor(d[i])
+                    void properties.observer_interactor(d[i])
                 }
                 e = val = d = undefined;
             },
             observer_interactor: function (e) {
                 if (e instanceof Comment && e.parentNode && e.data[0] + e.data[e.data.length - 1] === '??') {
-                    properties.observer_callback(e)
+                    void properties.observer_callback(e)
                 } else if (e instanceof Element) {
                     if (properties.use_attributes) {
                         if (e.hasAttribute(properties.nameSpace.attribute)) {
-                            properties.observer_callback(e, properties.nameSpace.element_flag)
+                            void properties.observer_callback(e, properties.nameSpace.element_flag)
                         } else {
                             var _e = e.querySelectorAll('[' + properties.nameSpace.attribute + ']')
                             for (var i = 0; i < _e.length; i++) {
-                                properties.observer_callback(_e[i], properties.nameSpace.element_flag)
+                                void properties.observer_callback(_e[i], properties.nameSpace.element_flag)
                             }
                             _e = undefined;
-                            properties.observer_treeWalker(e);
+                            void properties.observer_treeWalker(e);
                         }
                     } else {
-                        properties.observer_treeWalker(e);
+                        void properties.observer_treeWalker(e);
                     }
                 }
                 e = undefined
@@ -300,12 +300,12 @@
                 }
                 for (var i = node.__children__.length - 1; i >= 0; i--) {
                     if (node.__children__[i].__children__) {
-                        properties.re_entries(node.__children__[i])
+                        void properties.re_entries(node.__children__[i])
                     } else {
                         if (node.__children__[i]._points_to) {
-                            properties.re_entries(node.__children__[i]._points_to)
+                            void properties.re_entries(node.__children__[i]._points_to)
                         } else {
-                            node.__children__[i].remove()
+                            void node.__children__[i].remove()
                         }
                     }
                 }
@@ -315,7 +315,7 @@
                 if (data instanceof NodeList || data instanceof Array) {
 
                     for (var i = 0; i < data.length; i++) {
-                        properties.type_entries(node, data[i], i)
+                        void properties.type_entries(node, data[i], i)
                     }
                     return
                 }
@@ -354,24 +354,24 @@
                     } else if (node instanceof HTMLLinkElement) {
                         node.href = data.textContent
                     } else {
-                        node.appendChild(data)
+                       void  node.appendChild(data)
                     }
                 }
                 node = data = undefined
             },
             entries: function (node, data, ch, cloned, x_data) {
                 if (data instanceof Object && data['[[man-formed]]']) {
-                    properties.console.warn('unstable handler for type Promise', data)
+                    void properties.console.warn('unstable handler for type Promise', data)
                     data = '';
                 } else if (data instanceof this.APPTemplate) {
-                    properties.entries(node, data.content, ch, !data.clone, x_data)
+                    void properties.entries(node, data.content, ch, !data.clone, x_data)
                     x_data = node = data = undefined
                     return
                 } else if (data instanceof DocumentFragment) {
                     if (cloned) {
-                        properties.entries(node, data.childNodes, ch, true)
+                        void properties.entries(node, data.childNodes, ch, true)
                     } else {
-                        properties.entries(node, data.cloneNode(true).childNodes, ch, true)
+                        void properties.entries(node, data.cloneNode(true).childNodes, ch, true)
                     }
                     x_data = node = data = undefined
                     return
@@ -379,16 +379,16 @@
                     if (cloned) {
                         for (var i = 0; data.length > 0; i++) {
                             if (data[0] instanceof Element) {
-                                properties.observer_treeWalker(data[0]);
+                                void properties.observer_treeWalker(data[0]);
                             }
-                            properties.entries(node, data[0], i, cloned, x_data)
+                            void properties.entries(node, data[0], i, cloned, x_data)
                         }
                     } else {
                         for (var i = 0; i < data.length; i++) {
                             if (data[i] instanceof Element) {
-                                properties.observer_treeWalker(data[i]);
+                                void properties.observer_treeWalker(data[i]);
                             }
-                            properties.entries(node, data[i], i, cloned, x_data)
+                            void properties.entries(node, data[i], i, cloned, x_data)
                         }
                     }
                     x_data = node = data = undefined
@@ -423,7 +423,7 @@
                 }
 
                 if (!data && typeof data !== 'string') {
-                    properties.console.warn('unknow value of "' + data + '"', data)
+                    void properties.console.warn('unknow value of "' + data + '"', data)
                     data = document.createTextNode('');
                 }
 
@@ -432,7 +432,7 @@
                 }
 
                 if (node instanceof Element) {
-                    properties.type_entries(node, data, ch)
+                    void properties.type_entries(node, data, ch)
                     return
                 }
 
@@ -455,37 +455,37 @@
                         node.__children__ = []
 
                         if (typeof node.__events.onloadend === "function") {
-                            properties.Constructor(node.__events, 'onloadend')
+                            void properties.Constructor(node.__events, 'onloadend')
                             node.__events.onloadend.prototype.resolve = n.resolve
                             ev = 1
                         }
 
                         if (typeof node.__events.onload === "function") {
-                            properties.Constructor(node.__events, 'onload')
+                            void properties.Constructor(node.__events, 'onload')
                             node.__events.onload.prototype.resolve = n.resolve
                             ev = 1
                         }
 
                         if (typeof node.__events.onloadstart === "function") {
-                            properties.Constructor(node.__events, 'onloadstart')
+                            void properties.Constructor(node.__events, 'onloadstart')
                             node.__events.onloadstart.prototype.resolve = n.resolve
-                            new node.__events.onloadstart()
+                            void new node.__events.onloadstart()
                             ev = 1
                         }
 
                         if (!ev) {
-                            properties.re_entries(n)
+                            void properties.re_entries(n)
                         }
 
                     } else {
-                        properties.re_entries(node)
+                        void properties.re_entries(node)
                         node.__children__ = []
                     }
                 }
 
                 if (x_data) {
                     node.target_child = x_data;
-                    x_data.parentElement.insertBefore(data, x_data)
+                    void x_data.parentElement.insertBefore(data, x_data)
                     x_data = undefined;
                 } else {
                     if (node.target_child.nextSibling) {
@@ -497,7 +497,7 @@
                 if (!node.__children__) {
                     node.__children__ = [node.target_child = data]
                 } else {
-                    node.__children__.push(node.target_child = data)
+                    void node.__children__.push(node.target_child = data)
                 }
                 ev = data = node = undefined
             },
@@ -520,11 +520,11 @@
                     if (e.hasAttribute(properties.nameSpace.attribute + '-target')) {
                         e.__target = e.getAttribute(properties.nameSpace.attribute + '-target')
                         e.__target = e.__target.split(',')
-                        e.removeAttribute(properties.nameSpace.attribute + '-target')
+                        void e.removeAttribute(properties.nameSpace.attribute + '-target')
                     }
                     e.pending = 0
                     e.data = e.getAttribute(properties.nameSpace.attribute)
-                    e.removeAttribute(properties.nameSpace.attribute)
+                    void e.removeAttribute(properties.nameSpace.attribute)
                     if (!e.data) {
                         return
                     }
@@ -540,7 +540,7 @@
 
                     if (type !== properties.nameSpace.offline) {
                         e._points_to = node
-                        e.parentElement.replaceChild(node, e)
+                        void e.parentElement.replaceChild(node, e)
                     }
 
                     type = undefined
@@ -560,7 +560,7 @@
                     try {
                         node.__events = new Function('"use strict";return ' + data)();
                     } catch (error) {
-                        properties.console.error(error)
+                        void properties.console.error(error)
                     }
                 } else if (data && !type) {
                     data = data.trim()
@@ -583,9 +583,9 @@
                     if (!((e = properties.store[node.__data__[0]]) && (e = e.has(node.__data__[1])))) {
                         node.target_child = node;
                         if (data instanceof NodeList && !data.exeception) {
-                            properties.entries(node, data, 0)
+                            void properties.entries(node, data, 0)
                         } else {
-                            properties.entries(node, data, 0, true)
+                            void properties.entries(node, data, 0, true)
                         }
                     }
                 }
@@ -606,17 +606,17 @@
 
 
                         if (type === properties.nameSpace.element_flag) {
-                            properties.entries(node, arguments[0])
+                            void properties.entries(node, arguments[0])
                         } else {
                             node.target_child = node;
-                            properties.entries(node, arguments[0])
+                            void properties.entries(node, arguments[0])
                             if (node.__events instanceof Object && typeof node.__events.onloadend === "function") {
-                                properties.Constructor(node.__events, 'onloadend')
-                                new node.__events.onloadend(node.__children__, arguments[0])
+                                void properties.Constructor(node.__events, 'onloadend')
+                                void new node.__events.onloadend(node.__children__, arguments[0])
                             }
                             if (node.__events instanceof Object && typeof node.__events.onload === "function") {
-                                properties.Constructor(node.__events, 'onload')
-                                new node.__events.onload(node.__children__, arguments[0])
+                                void properties.Constructor(node.__events, 'onload')
+                               void new node.__events.onload(node.__children__, arguments[0])
                             }
                         }
                         arguments[0] = undefined
@@ -645,7 +645,7 @@
             this.mapAll = function (object) {
                 if (typeof object === 'object') {
                     for (var key in object) {
-                        this.map(key, object[key])
+                        void this.map(key, object[key])
                     }
                     object = undefined
                 } else {
@@ -698,7 +698,7 @@
 
     properties.stringtolist.elm = document.createElement('x');
     properties.events = properties.Event('router', {})
-    properties.observer();
+    void properties.observer();
 
     window.RouteJs = function (name, object) {
         if (!(this instanceof RouteJs)) {
@@ -716,10 +716,10 @@
         }
         var store = (properties.store[name] = properties.Event(name, object instanceof properties.APPExtendedObject ? object.content : {}));
 
-        Object.freeze(this)
-        this.mapAll(object)
+        void Object.freeze(this)
+        void this.mapAll(object)
         object = undefined
-        properties.events.emit(this.name, store)
+        void properties.events.emit(this.name, store)
     }
 
     properties.APPExtendedObject.prototype.content = {}
