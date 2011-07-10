@@ -9,10 +9,10 @@ body {
     justify-content: center;
     margin: 0;
     width: auto;
-    overflow: auto;
+    overflow: hidden;
     scroll-behavior: smooth;
-    padding: 36px 7vw;
     background: inherit;
+    height: 100vh;
 
 }
 
@@ -43,8 +43,9 @@ h1 {
 
 img {
     max-height: 400px;
-    height: 57vw;
-    min-width: 450px;
+    /* height: 57vw; */
+    max-width: 450px;
+    /* width: 100vw; */
 }
 
 button {
@@ -58,7 +59,7 @@ button {
 
 [animate] {
     position: fixed;
-    animation-duration: 400ms;
+    animation-duration: 500ms;
     animation-timing-function: ease-in-out;
     animation-iteration-count: 1;
 }
@@ -66,6 +67,7 @@ button {
 [animate="in"] {
     z-index: 1;
     animation-name: slideIn;
+    border-left: 1px solid #ffff;
 }
 
 [animate="out"] {
@@ -75,6 +77,13 @@ button {
 article {
     /* box-shadow: inset -5px 0px 0px red; */
     background: inherit;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    overflow: hidden;
+    align-items: center;
 }
 
 @keyframes slideIn {
@@ -96,7 +105,7 @@ article {
 }
 
 @keyframes slideOut {
-    from {
+    0% {
         transform: translateX(0);
         -webkit-transform: translateX(0);
         -moz-transform: translateX(0);
@@ -104,11 +113,11 @@ article {
         -o-transform: translateX(0);
     }
 
-    to {
-        transform: translateX(-50vw);
-        -webkit-transform: translateX(-50vw);
-        -moz-transform: translateX(-50vw);
-        -ms-transform: translateX(-50vw);
-        -o-transform: translateX(-50vw);
+    100% {
+        transform: translateX(-24vw);
+        -webkit-transform: translateX(-24vw);
+        -moz-transform: translateX(-24vw);
+        -ms-transform: translateX(-24vw);
+        -o-transform: translateX(-24vw);
     }
 }

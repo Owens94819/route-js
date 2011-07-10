@@ -11,7 +11,7 @@
         }
     </script>
     <template path='#'>
-        <article xclass="slide">
+        <article>
             <?lib:home-img?>
             <h1>Home</h1>
             <p>
@@ -23,7 +23,7 @@
         </article>
     </template>
     <template path='#about'>
-        <article xclass="slide">
+        <article>
             <?lib:about-img?>
             <h1>About</h1>
             <p>
@@ -35,7 +35,7 @@
         </article>
     </template>
     <template _404>
-        <article xclass="slide">
+        <article>
             <?lib:404-img?>
             <h2>location not fund</h2>
             <p>
@@ -54,35 +54,30 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title route="app:name">Document</title>
-</head>
-
-<body id="bd">
     <script>
         function h() {
             console.log(this);
         }
         var d = {
-            onloadend: function () {
+            onload: function () {
                 var r = this.resolve
-                var atr = document.body.querySelectorAll("article")
-
+                var atr = bd.querySelectorAll("article")
                 if (1 < atr.length) {
-                    atr[0].onwebkitanimationend = function () {
-                        console.log(8);
-                    }
                     atr[0].setAttribute('animate', 'in')
                     atr[1].setAttribute('animate', 'out')
                     bd.setAttribute('incoming', '')
                     setTimeout(function () {
                         r()
-                        var atr = document.body.querySelector("article")
                         bd.removeAttribute('incoming')
-                        atr.removeAttribute('animate')
-                    }, 400)
+                        atr[0].removeAttribute('animate')
+                    }, 500)
                 }
             }
         }
     </script>
+</head>
+
+<body id="bd">
     <?app:contents (d)?>
 </body>
 

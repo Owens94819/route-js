@@ -317,6 +317,9 @@
                 e = undefined
             },
             re_entries: function (node) {
+                if (!node) {
+                    return
+                }
                 for (var i = node.__children__.length - 1; i >= 0; i--) {
                     if (node.__children__[i].__children__) {
                         properties.re_entries(node.__children__[i])
@@ -460,47 +463,61 @@
                 }
 
                 if (!ch && !x_data && node.__children__) {
-                    var ev;
 
                     if (node.__events instanceof Object) {
+                        var ev;
 
                         var n = {
                             __children__: node.__children__
                         }
                         node.__children__ = []
 
-                        switch (true) {
-                            case (typeof node.__events.onloadend === "function"):
-                                node.__events.onloadend.prototype.resolve = function () {
-                                    properties.re_entries(n)
-                                    n = undefined
-                                }
-                            case (typeof node.__events.onloadstart === "function"):
-                                node.__events.onloadstart.prototype.resolve = function () {
-                                    properties.re_entries(n)
-                                    n = undefined
-                                }
-                                new node.__events.onloadstart()
-                                break;
-                            default:
+                        // switch (true) {
+                        //     case (typeof node.__events.onloadstart === "function"):
+                        //         node.__events.onloadstart.prototype.resolve = function () {
+                        //             properties.re_entries(n)
+                        //             n = undefined
+                        //         }
+                        //         new node.__events.onloadstart()
+                        //     case (typeof node.__events.onloadend === "function"):
+                        //         node.__events.onloadend.prototype.resolve = function () {
+                        //             properties.re_entries(n)
+                        //             n = undefined
+                        //         }
+                        //     default:
+                        //         properties.re_entries(n)
+                        //         n = undefined
+                        //         break;
+                        // }
+
+                        if (typeof node.__events.onloadend === "function") {
+                            node.__events.onloadend.prototype.resolve = function () {
                                 properties.re_entries(n)
                                 n = undefined
-                                break;
+                            }
+                            ev = 1
                         }
 
-                        // if (typeof node.__events.onloadend === "function") {
-                        //     node.__events.onloadend.prototype.resolve = function () {
-                        //         properties.re_entries(n)
-                        //         n = undefined
-                        //     }
-                        // }
-                        // if (typeof node.__events.onloadstart === "function") {
-                        //     node.__events.onloadstart.prototype.resolve = function () {
-                        //         properties.re_entries(n)
-                        //         n = undefined
-                        //     }
-                        //     ev= new node.__events.onloadstart()
-                        // }
+                        if (typeof node.__events.onload === "function") {
+                            node.__events.onload.prototype.resolve = function () {
+                                properties.re_entries(n)
+                                n = undefined
+                            }
+                            ev = 1
+                        }
+
+                        if (typeof node.__events.onloadstart === "function") {
+                            node.__events.onloadstart.prototype.resolve = function () {
+                                properties.re_entries(n)
+                                n = undefined
+                            }
+                            new node.__events.onloadstart()
+                            ev = 1
+                        }
+
+                        if (!ev) {
+                            properties.re_entries(n)
+                        }
 
                     } else {
                         properties.re_entries(node)
@@ -644,6 +661,9 @@
                             properties.entries(node, arguments[0])
                             if (node.__events instanceof Object && typeof node.__events.onloadend === "function") {
                                 new node.__events.onloadend(node.__children__, arguments[0])
+                            }
+                            if (node.__events instanceof Object && typeof node.__events.onload === "function") {
+                                new node.__events.onload(node.__children__, arguments[0])
                             }
                         }
                         arguments[0] = undefined
