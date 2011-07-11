@@ -5,8 +5,8 @@ body {
 }
 
 article{
-    animation: slideIn 0.2s 1 ease-in-out;
-    -webkit-animation: slideIn 0.2s 1 ease-in-out;
+    animation: slideIn 0.1s 1 ease-in-out;
+    -webkit-animation: slideIn 0.1s 1 ease-in-out;
 }
 
 h2,h1 {
@@ -34,11 +34,11 @@ button{
 
 @keyframes slideIn {
     from{
-        transform: translateX(100vw);
-        -webkit-transform: translateX(100vw);
-        -moz-transform: translateX(100vw);
-        -ms-transform: translateX(100vw);
-        -o-transform: translateX(100vw);
+        transform: translateX(90vw);
+        -webkit-transform: translateX(90vw);
+        -moz-transform: translateX(90vw);
+        -ms-transform: translateX(90vw);
+        -o-transform: translateX(90vw);
 }
 to{
     transform: translateX(0px);
