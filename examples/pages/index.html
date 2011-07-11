@@ -3,11 +3,11 @@
 
 <head>
     <script>
-       var img;
+        var img;
         var lib = {
-            "home-img": (img=new Image(),img.src = "../../imgs/home.svg", img),
-            "about-img": (img=new Image(),img.src = "../../imgs/about.svg", img),
-            "404-img": (img=new Image(),img.src = "../../imgs/404.svg", img)
+            "home-img": (img = new Image(), img.src = "../../imgs/home.svg", img),
+            "about-img": (img = new Image(), img.src = "../../imgs/about.svg", img),
+            "404-img": (img = new Image(), img.src = "../../imgs/404.svg", img)
         }
     </script>
     <template path='#'>
@@ -57,7 +57,31 @@
 </head>
 
 <body>
-    <?app:contents?>
+    <?app:contents {
+        onchange(currentNode, nextNode) {
+            console.log(currentNode,nextNode);
+          return new Promise(function(r){
+            setTimeout(function(){
+            r()
+            },1000)
+          })
+        }
+    }?>
+
+    <!-- <?{
+        app(){
+            return "name"
+        }
+    }?> -->
+
+    <!-- <?app:contentsl hello?> -->
+    <script>
+        // console.log({
+        //     onchange() {
+
+        //     }
+        // });
+    </script>
 </body>
 
 </html>

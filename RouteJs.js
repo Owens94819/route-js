@@ -114,7 +114,7 @@
                 d = arguments[0] = undefined
             },
             $: function () {
-                arguments = arguments[0]
+                // arguments = arguments[0]
                 if ((arguments[0] instanceof Object) === false && "string" !== typeof arguments[0]) {
                     return
                 }
@@ -525,16 +525,23 @@
                     data = e.data.substring(1, e.data.length - 1)
                 }
 
-                data = data.trim().split(/\s/)
-                node.__data__ = data[0].trim().toLowerCase()
+                data = data.trim().split(/^([^\s\n]+)/)
+                node.__data__ = data[1].trim().toLowerCase()
 
                 if (node.__data__ === e.parent_data) {
                     return properties.console.error('map stack limit reached.', node.__data__)
                 }
 
                 node.__data__ = node.__data__.split(':')
-                data = data[1];
-                if (data && !type) {
+                data = data[2]
+                if (data&&data[1]+data[data.length-1]==='{}') {
+                    try {
+                        node.__events=new Function('"use strict";return '+data)();
+                    } catch (error) {
+                        properties.console.error(error)
+                    }
+                    // console.log(node.__events,properties.$(node.__events,'onchange',[9]));
+                }else if (data && !type) {
                     data = data.trim()
                     if ('#'.includes(data[0])) {
                         data = document.querySelector(data);
@@ -579,6 +586,8 @@
                         // if (!arguments[0] && typeof arguments[0] !== 'string') {
                         //     arguments[0] = ''
                         // }
+                        // var ev = properties.$(node.__events,'onchange',[node.__children__,data])
+
                         if (type === properties.nameSpace.element_flag) {
                             // properties.type_entries(node, arguments[0])
                             properties.entries(node, arguments[0])
