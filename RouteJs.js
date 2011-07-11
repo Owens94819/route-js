@@ -243,15 +243,23 @@ void(function () {
             _observer: (window.MutationObserver ? function (foo, elm) {
                 void new window.MutationObserver(function (e) {
                     for (var i = 0; i < e.length; i++) {
-                        for (var _i = 0; _i < e[i].addedNodes.length; _i++) {
-                            void foo(e[i].addedNodes[_i]);
+                        if (e[i].type==="childList") {
+                            for (var _i = 0; _i < e[i].addedNodes.length; _i++) {
+                                void foo(e[i].addedNodes[_i]);
+                            }
+                        } else {
+                            void foo(e[i].target);
                         }
                     }
                     return e = i= void 0;
                 }).observe(elm || document, {
                     childList: true,
-                    characterData: true,
                     subtree: true,
+                    characterData: true,
+                    attributes: true,
+                    attributeFilter:[properties.nameSpace.attribute]
+                    // attributeOldValue: false,
+                    // characterDataOldValue: false
                 });
                 return elm = void 0;
             } : function (foo, elm) {
