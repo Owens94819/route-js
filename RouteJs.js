@@ -334,7 +334,7 @@ void(function () {
                     node.__target = node.__target.split(',')
                 }
 
-                if (node.__target) {
+                if (void(0)&&node.__target) {
                     if (i) {
                         for (var i = 0; i < node.__target.length; i++) {
                             node[node.__target[i].trim()] += data.textContent
