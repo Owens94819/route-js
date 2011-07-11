@@ -199,7 +199,7 @@ void(function () {
                 store.data = store.data || data || {};
                 store.events = store.events || {};
                 i = i - 1
-                return  {
+                return {
                     name: [String(type), type],
                     emit: function (name, data) {
                         if (arguments.length > 1) {
@@ -345,20 +345,37 @@ void(function () {
                         }
                     }
                 } else {
-                    if (!i) {
-                        node.innerHTML = ''
-                        node.value = ''
+                    if (node.__events.hasEventProperty === "true") {
+                        if (!node.previousNode) {
+                            node.previousNode = {
+                                __children__: []
+                            }
+                        }
+                        if (!i) {
+                            for (var i = 0; i < node.childNodes.length; i++) {
+                                node.previousNode.__children__.push(node.childNodes[i])
+                            }
+                        }
+                    } else {
+                        if (!i) {
+                            node.innerHTML = ''
+                            node.value = ''
+                        }
                     }
                     if (node instanceof HTMLTitleElement) {
                         node.innerText += data.textContent
                     } else if (node instanceof HTMLInputElement) {
                         node.value += data.textContent
-                    } else if (node.hasOwnProperty('src')) {
-                        node.src = data.textContent
                     } else if (node instanceof HTMLLinkElement) {
                         node.href = data.textContent
+                    } else if (node.hasOwnProperty('src')) {
+                        node.src = data.textContent
                     } else {
-                        void node.appendChild(data)
+                        if (node.firstElementChild) {
+                            void node.insertBefore(data, node.firstElementChild);
+                        } else {
+                            void node.appendChild(data);
+                        }
                     }
                 }
                 node = data = undefined
@@ -379,7 +396,7 @@ void(function () {
                     }
                     x_data = node = data = undefined
                     return
-                } else if (data instanceof NodeList && node instanceof CharacterData) {
+                } else if (data instanceof NodeList) {
                     if (cloned) {
                         for (var i = 0; data.length > 0; i++) {
                             if (data[0] instanceof Element) {
@@ -425,7 +442,6 @@ void(function () {
                     }
                     return
                 }
-
                 if (!data && typeof data !== 'string') {
                     void properties.console.warn('unknow value of "' + data + '"', data)
                     data = document.createTextNode('');
@@ -445,21 +461,14 @@ void(function () {
                 }
 
                 if (!ch && !x_data) {
-                    if (node.__events instanceof Object) {
+                    if (node.__events.hasEventProperty) {
                         node.previousNode = {
                             __children__: node.__children__ || []
                         }
-
                         node.__children__ = []
-
-                        if (typeof node.__events.onloadstart === "function") {
-                            void node.__events.onloadstart(node.__events.resolve, null, null)
-                        }
-
-                        if (!(node.__events.onloadend || typeof node.__events.onload || typeof node.__events.onloadstart)) {
+                        if (node.__events.hasEventProperty === "false") {
                             void node.__events.resolve()
                         }
-
                     } else if (node.__children__) {
                         void properties.re_entries(node)
                         node.__children__ = []
@@ -536,6 +545,7 @@ void(function () {
 
                 node.__data__ = node.__data__.split(':')
                 data = data[2]
+                node.__events = {};
                 if (data && (data[1] + data[data.length - 1]).match(/^(\{\}|\(\))$/)) {
                     try {
                         node.__events = new Function('"use strict";return ' + data)();
@@ -549,12 +559,20 @@ void(function () {
                             node.__events = {}
                         }
                         node.__events.resolve = function () {
-                            node.previousNode && (properties.re_entries(node.previousNode), node.previousNode = void 0)
+                            properties.re_entries(node.previousNode), node.previousNode = void 0;
                         };
                         if (typeof node.__events.placeholder === "function") {
                             data = node.__events.placeholder()
                         } else {
                             data = node.__events.placeholder
+                        }
+                        if (
+                            typeof node.__events.onload === "function" ||
+                            typeof node.__events.onloadend === "function" ||
+                            typeof node.__events.onloadstart === "function") {
+                            node.__events.hasEventProperty = "true"
+                        } else {
+                            node.__events.hasEventProperty = "false"
                         }
                     } catch (error) {
                         data = void 0;
@@ -604,17 +622,22 @@ void(function () {
                             }
                         }
 
+                        if (typeof node.__events.onloadstart === "function") {
+                            void node.__events.onloadstart(node.__events.resolve, null, null)
+                        }
+
                         if (type === properties.nameSpace.element_flag) {
                             void properties.entries(node, arguments[0])
                         } else {
                             node.target_child = node;
                             void properties.entries(node, arguments[0])
-                            if (node.__events instanceof Object && typeof node.__events.onloadend === "function") {
-                                void node.__events.onloadend(node.__events.resolve, null /**NEWSibling*/ , null /**OLDSibling*/ )
-                            }
-                            if (node.__events instanceof Object && typeof node.__events.onload === "function") {
-                                void node.__events.onload(node.__events.resolve, null, null)
-                            }
+                        }
+
+                        if (node.__events instanceof Object && typeof node.__events.onloadend === "function") {
+                            void node.__events.onloadend(node.__events.resolve, null /**NEWSibling*/ , null /**OLDSibling*/ )
+                        }
+                        if (node.__events instanceof Object && typeof node.__events.onload === "function") {
+                            void node.__events.onload(node.__events.resolve, null, null)
                         }
                         arguments[0] = void 0
                     })
@@ -721,8 +744,8 @@ void(function () {
 
     properties.APPExtendedObject.prototype.content = {};
     RouteJs.prototype = new RouteJsCore();
-    RouteJsCore=void 0;
-    
+    RouteJsCore = void 0;
+
     RouteJs.extend = function () {
         return new properties.APPExtendedObject(arguments[0])
     };
@@ -772,7 +795,7 @@ void(function () {
     /**
      * @COMING_SOON </> RouteJs.initExtension(Function, String);
      */
-     RouteJs.initExtension = function () {};
+    RouteJs.initExtension = function () {};
 })();
 
 // RouteJs.initExtension('mapplus',function(properties){

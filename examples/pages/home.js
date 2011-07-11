@@ -2,8 +2,7 @@
 var title=location.pathname.split('/')
 title=title[title.length-1]||"home.html"
 var app = new RouteJs('app', {
-    name: title,
-    content: RouteJs.prototype.useTemplate(document.querySelector("[page]"))
+    name: title
 });
 var pages={}
 var duration = 800
@@ -12,7 +11,7 @@ var app_event = function (resolve, NEWSibling, OLDSibling) {
     /**Animation**/
     var atr = body.querySelectorAll("article")
     if (atr.length > 1) {
-        var _duration = Math.min(Math.max((window.innerWidth / duration) * 500, 500), duration + 200)
+        var _duration = Math.min(Math.max((window.innerWidth / duration) * duration, duration), duration + 200)
         body.style.animationDuration = _duration + 'ms'
 
         atr[0].setAttribute('animate', 'in')
@@ -24,7 +23,7 @@ var app_event = function (resolve, NEWSibling, OLDSibling) {
             body.removeAttribute('incoming')
             atr[0].removeAttribute('animate')
             atr = undefined;
-        }, _duration+50)
+        }, _duration+15)
     }
 }
 
@@ -36,9 +35,9 @@ onpopstate=function(){
         loadContent(pages[location.href])
     } else {
         RouteJs.fetch(location.href).onload=function(){
-            var elm=this.response.querySelector("[page]")
+            var elm=this.response.querySelector('article')
             if (elm) {
-                loadContent(pages[location.href]={title:title,content:elm.content})
+                loadContent(pages[location.href]={title:title,content:elm})
             } else {
             history._pushState(location.origin+"/examples/pages/404.html")
             }
@@ -47,7 +46,7 @@ onpopstate=function(){
 }
 
 function loadContent(elm){
-            app.map("content",elm.content)
+                app.map("content",elm.content)
             app.map("name",elm.title)
 }
 

@@ -20,6 +20,7 @@ body {
     pointer-events: none;
 }
 
+
 html {
     scroll-behavior: smooth;
 }
@@ -47,13 +48,20 @@ svg,
     max-width: 500px;
 }
 
-button {
+a,button {
     background-color: #4a4a69;
     color: rgb(255 255 255);
     font-weight: 500;
     padding: 10px 16px;
 }
-
+a{
+    text-decoration: none;
+    border-radius: 28px;
+    -webkit-border-radius: 28px;
+    -moz-border-radius: 28px;
+    -ms-border-radius: 28px;
+    -o-border-radius: 28px;
+}
 
 
 [animate] {
@@ -82,26 +90,29 @@ article {
     flex-direction: column;
     overflow: hidden;
     align-items: center;
-    /* padding: 0 24px; */
-
-    animation-duration: inherit;
+    /*padding: 0 24px;
+    */animation-duration: inherit;
     animation-timing-function: cubic-bezier(0.445, 0.05, 0.55, 0.95);
+    animation-timing-function: ease-in-out;
     animation-iteration-count: 1;
-    /* animation-direction: reverse; */
-
-    -webkit-animation-duration: inherit;
+    /*animation-direction: reverse;
+    */-webkit-animation-duration: inherit;
     -webkit-animation-iteration-count: 1;
+    -webkit-transition:;
+    -moz-transition:;
+    -ms-transition:;
+    -o-transition:;
 }
 
 
 @keyframes slideIn {
     from {
-        transform: translateX(100vw);
-        -webkit-transform: translateX(100vw);
-        -moz-transform: translateX(100vw);
-        -ms-transform: translateX(100vw);
-        -o-transform: translateX(100vw);
-    }
+        transform: translateX(105vw);
+        -webkit-transform: translateX(105vw);
+        -moz-transform: translateX(105vw);
+        -ms-transform: translateX(105vw);
+        -o-transform: translateX(105vw);
+}
 
     to {
         transform: translateX(0);
@@ -119,6 +130,7 @@ article {
         -moz-transform: translateX(0);
         -ms-transform: translateX(0);
         -o-transform: translateX(0);
+        opacity: 1;
     }
 
     to {
@@ -127,6 +139,7 @@ article {
         -moz-transform: translateX(-40vw);
         -ms-transform: translateX(-40vw);
         -o-transform: translateX(-40vw);
+        opacity: 0;
 }
 }
 
