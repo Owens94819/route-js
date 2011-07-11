@@ -316,13 +316,13 @@ void(function () {
                 node = undefined
             },
             type_entries: function (node, data, i) {
-                if (data instanceof NodeList || data instanceof Array) {
+                // if (data instanceof NodeList || data instanceof Array) {
 
-                    for (var i = 0; i < data.length; i++) {
-                        void properties.type_entries(node, data[i], i)
-                    }
-                    return
-                }
+                //     for (var i = 0; i < data.length; i++) {
+                //         void properties.type_entries(node, data[i], i)
+                //     }
+                //     return
+                // }
 
                 if (!(data instanceof Node)) {
                     data = document.createTextNode(data)
