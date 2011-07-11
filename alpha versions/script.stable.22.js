@@ -34,7 +34,7 @@
  */
 
 
-void(function () {
+ void(function () {
     if (!window.Promise) {
         /**
          * @Legacy
@@ -65,8 +65,7 @@ void(function () {
             nameSpace: {
                 attribute: 'route',
                 offline: 'still_offline',
-                element_flag: 'element',
-                Program_public_name: 'RouteJs'
+                element_flag: 'element'
             },
             APPPromise: function () {
                 this.data = arguments[0]
@@ -198,8 +197,11 @@ void(function () {
 
                 store.data = store.data || data || {};
                 store.events = store.events || {};
+                // if (!store.eventhandler) {
+                //     store.eventhandler = {}
+                // }
                 i = i - 1
-                return  {
+                return /*store.eventhandler[type[i]] = store.eventhandler[type[i]] || */{
                     name: [String(type), type],
                     emit: function (name, data) {
                         if (arguments.length > 1) {
@@ -265,17 +267,17 @@ void(function () {
             },
             observer_treeWalker: function (e) {
                 if (e.childNodes.length < 1) {
-                    return void 0;
+                    return
                 }
                 var val = document.createTreeWalker(e, NodeFilter.SHOW_COMMENT, function () {
-                        void d.push(arguments[0]);
+                        void d.push(arguments[0])
                     }, false),
                     d = [];
-                void val.nextNode();
+                void val.nextNode()
                 for (var i = 0; i < d.length; i++) {
-                    void properties.observer_interactor(d[i]);
+                    void properties.observer_interactor(d[i])
                 }
-                e = val = d = void 0;
+                e = val = d = undefined;
             },
             observer_interactor: function (e) {
                 if (e instanceof Comment && e.parentNode && e.data[0] + e.data[e.data.length - 1] === '??') {
@@ -489,6 +491,9 @@ void(function () {
                 elm.innerHTML = e;
                 return elm.childNodes
             },
+            exacute_data: function (e) {
+
+            },
             observer_callback: function (e, type) {
                 var node,
                     data;
@@ -697,7 +702,7 @@ void(function () {
     properties.events = properties.Event('router', {});
     void properties.observer();
 
-    this.RouteJs = function (name, object) {
+    window.RouteJs = function (name, object) {
         if (!(this instanceof RouteJs)) {
             return new RouteJs(name, object)
         }
@@ -721,8 +726,6 @@ void(function () {
 
     properties.APPExtendedObject.prototype.content = {};
     RouteJs.prototype = new RouteJsCore();
-    RouteJsCore=void 0;
-    
     RouteJs.extend = function () {
         return new properties.APPExtendedObject(arguments[0])
     };
@@ -772,7 +775,7 @@ void(function () {
     /**
      * @COMING_SOON </> RouteJs.initExtension(Function, String);
      */
-     RouteJs.initExtension = function () {};
+    RouteJs.initExtension = function () {};
 })();
 
 // RouteJs.initExtension('mapplus',function(properties){

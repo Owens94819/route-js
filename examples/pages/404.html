@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <template page>
+        <article>
+            <?lib:404-img?>
+            <h2>location not found</h2>
+            <p>
+                This page is currently unavailable.
+                <br>
+                <br>
+                <a href="home.html" onclick=" event.preventDefault(); history._replaceState(this.href);">Check Home Page</a>
+            </p>
+        </article>
+    </template>
+    <link rel="stylesheet" href="../../themes/default.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="../../RouteJs.js"></script>
+    <script src="home.js"></script>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title route="app:name">Document</title>
+</head>
+
+<body id="body">
+    <?app:content (app_event)?>
+</body>
+</html>
