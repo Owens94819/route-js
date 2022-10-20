@@ -6,17 +6,6 @@ var app = new RouteJs('app', {
 
 new RouteJs('lib',lib);
 
-// var img=new Image()
-// var lib =new RouteJs('lib',{
-//     "home-img":(img.src="../../imgs/home.svg",img.cloneNode()),
-//     "about-img":(img.src="../../imgs/about.svg",img.cloneNode()),
-//     "404-img":(img.src="../../imgs/404.svg",img.cloneNode())
-// });
-
-
-
-
-
  onhashchange = function(){
     var hash=location.hash.trim();
     if (!hash) {
