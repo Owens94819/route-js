@@ -41,7 +41,9 @@ h1 {
 }
 
 
-img {
+img,
+svg,
+[image] {
     min-height: 212px;
     min-width: 159.33333333333334px;
     /*width: 318px;
@@ -137,4 +139,135 @@ article {
         -ms-transform: translateX(-24vw);
         -o-transform: translateX(-24vw);
     }
+}
+
+[type="404"] .st0 {
+    fill: #E3E5FC;
+}
+
+[type="404"] .st1 {
+    fill: #FFFFFF;
+}
+
+[type="404"] .st2 {
+    fill: none;
+    stroke: #FFFFFF;
+    stroke-linecap: round;
+    stroke-miterlimit: 10;
+}
+
+[type="404"] .st3 {
+    fill: #FDC510;
+}
+
+[type="404"] .st4 {
+    fill: #5A54FF;
+}
+
+[type="404"] .st5 {
+    fill: #978CFF;
+}
+
+[type="404"] .st6 {
+    fill: #F44E4E;
+}
+
+[type="about"] .st0 {
+    fill: #E3E5FC;
+}
+
+[type="about"] .st1 {
+    fill: #FFFFFF;
+}
+
+[type="about"] .st2 {
+    fill: #A7ADFF;
+}
+
+[type="about"] .st3 {
+    fill: #FDC510;
+}
+
+[type="about"] .st4 {
+    fill: #F44E4E;
+}
+
+[type="about"] .st5 {
+    fill: #4B369D;
+}
+
+[type="about"] .st6 {
+    fill: #978CFF;
+}
+
+[type="about"] .st7 {
+    fill: #D4A79A;
+}
+
+[type="about"] .st8 {
+    fill: #EAC2AB;
+}
+
+[type="about"] .st9 {
+    fill: #5A54FF;
+}
+
+[type="home"] .st0 {
+    fill: #A7ADFF;
+}
+
+[type="home"] .st1 {
+    fill: #FFFFFF;
+}
+
+[type="home"] .st2 {
+    fill: #E3E5FC;
+}
+
+[type="home"] .st3 {
+    fill: #4B369D;
+}
+
+[type="home"] .st4 {
+    fill: #F44E4E;
+}
+
+[type="home"] .st5 {
+    fill: #FDC510;
+}
+
+[type="home"] .st6 {
+    fill: #978CFF;
+}
+
+[type="home"] .st7 {
+    fill: #FFECA7;
+}
+
+[type="home"] .st8 {
+    fill: #F9AE10;
+}
+
+[type="home"] .st9 {
+    fill: #F9DC2C;
+}
+
+[type="home"] .st10 {
+    fill: #D4A79A;
+}
+
+[type="home"] .st11 {
+    fill: #EAC2AB;
+}
+
+[type="home"] .st12 {
+    fill: #F3AA02;
+}
+
+[type="home"] .st13 {
+    fill: #5A54FF;
+}
+
+[type="home"] .st14 {
+    fill: #D7384E;
 }
