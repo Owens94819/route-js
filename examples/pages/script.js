@@ -5,7 +5,7 @@ var app = new RouteJs('app', {
 
 new RouteJs('lib', lib);
 var duration = 800
-
+ 
 var app_event = {
     onload() {
         /**Animation**/
