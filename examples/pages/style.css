@@ -44,20 +44,7 @@ h1 {
 img,
 svg,
 [image] {
-    min-height: 212px;
-    min-width: 159.33333333333334px;
-    /*width: 318px;
-    height: 254.23px;
-    */
-    width: 368px;
-    height: 212px;
-    max-height: 477px;
-    max-width: 456.5px;
-    /*height: 318px;
-    width: 100%;
-    */
-    border-radius: 16px;
-    background: rgba(255, 255, 255, 0.09);
+    max-width: 500px;
 }
 
 button {
@@ -133,12 +120,12 @@ article {
     }
 
     to {
-        transform: translateX(-24vw);
-        -webkit-transform: translateX(-24vw);
-        -moz-transform: translateX(-24vw);
-        -ms-transform: translateX(-24vw);
-        -o-transform: translateX(-24vw);
-    }
+        transform: translateX(-40vw);
+        -webkit-transform: translateX(-40vw);
+        -moz-transform: translateX(-40vw);
+        -ms-transform: translateX(-40vw);
+        -o-transform: translateX(-40vw);
+}
 }
 
 [type="404"] .st0 {
