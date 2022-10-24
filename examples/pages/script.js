@@ -40,6 +40,7 @@ onhashchange = function () {
 onpopstate = function (e) {
     // console.log(e);
 }
+
 onhashchange()
 
 
