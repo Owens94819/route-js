@@ -1,37 +1,4 @@
-/**
- * @problem fixed
- * @todo fixe map stack overflow
- * @properties <\> @observer @entries @observer_callback
- */
 
-/**
- * @problem fixed
- * @todo use elements for mapping
- * @properties <\> @observer @entries @observer_callback
- */
-
-/**
- * @problem fixed
- * @todo use bottom to top loop for handler remover
- * @properties <\> @re_entries @observer_callback
- */
-
-/**
- * @problem pending
- * @todo handle HTMLCollection and Array just like NodeList
- * @properties <\> @entries
- */
-
-/**
- * @problem pending
- * @todo prevent node re-occurrence (same repaint)
- * @properties <\> @observer_callback @on
- */
-
-/**
- * @feature Animations
- * @todo add a transitional animation at before entries and before re_entries
- */
 
 
 void(function () {
